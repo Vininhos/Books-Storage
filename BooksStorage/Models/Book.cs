@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -7,10 +8,15 @@ public class Book
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Author { get; set; }
+    public ObjectId Id { get; } = ObjectId.GenerateNewId();
+
+    [Required] public string Name { get; set; }
+    [Required] public string Author { get; set; }
+
+    [Required]
+    [Display(Name = "Year of Publish")]
     public int PublishYear { get; set; }
-    public decimal Price { get; set; }
-    public string Category { get; set; }
+
+    [Required] public decimal Price { get; set; }
+    [Required] public string Category { get; set; }
 }

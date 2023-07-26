@@ -1,50 +1,31 @@
 using BooksStorage.Models;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace BooksStorage.Data;
 
 public class BookRepository : IBookRepository
 {
-    private readonly AppDbContext _context;
+    private readonly IMongoCollection<Book> _bookCollection;
 
-    public BookRepository(AppDbContext context)
+    public BookRepository(IOptions<BookStorageDatabaseSettings> bookStorageDatabaseSettings)
     {
-        _context = context;
+        var mongoClient = new MongoClient(bookStorageDatabaseSettings.Value.ConnectionString);
+        var mongoDatabase = mongoClient.GetDatabase(bookStorageDatabaseSettings.Value.DatabaseName);
+
+        _bookCollection = mongoDatabase.GetCollection<Book>(bookStorageDatabaseSettings.Value.BooksCollectionName);
     }
 
-    public bool SaveChanges()
+    public List<Book> GetAllBooks()
     {
-        return (_context.SaveChanges() > 0);
+        return _bookCollection.Find(_ => true).ToList();
     }
 
-    public IEnumerable<Book> GetAllBooks()
+    public void InsertBook(Book book)
     {
-        return _context.Books.ToList();
-    }
-
-    public void CreateBook(Book book)
-    {
-        if (book == null)
+        if (book is null)
             throw new ArgumentException("Book cannot be null.");
 
-        _context.Books.Add(book);
-    }
-
-    public void UpdateBook(Book book)
-    {
-        if (book == null)
-            throw new ArgumentException("Book cannot be null.");
-
-        _context.Remove(_context.Books.FirstOrDefault(b => b.Id == book.Id));
-
-        _context.Books.Add(book);
-    }
-
-    public void DeleteBook(int id)
-    {
-        var book = _context.Books.FirstOrDefault(b => b.Id == id);
-        if (book == null)
-            throw new ArgumentException("Book doesn't exist.");
-        
-        _context.Books.Remove(_context.Books.FirstOrDefault(b => b.Id == id));
+        _bookCollection.InsertOne(book);
     }
 }
