@@ -1,4 +1,4 @@
-namespace Books_Storage.Data;
+namespace BooksStorage.Data;
 
 public class PrepDb
 {

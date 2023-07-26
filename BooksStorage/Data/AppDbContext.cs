@@ -1,7 +1,7 @@
-using Books_Storage.Models;
+using BooksStorage.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Books_Storage.Data;
+namespace BooksStorage.Data;
 
 public class AppDbContext : DbContext
 {

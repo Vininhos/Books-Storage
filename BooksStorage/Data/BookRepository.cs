@@ -1,6 +1,6 @@
-using Books_Storage.Models;
+using BooksStorage.Models;
 
-namespace Books_Storage.Data;
+namespace BooksStorage.Data;
 
 public class BookRepository : IBookRepository
 {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Books_Storage.Controllers;
+namespace BooksStorage.Controllers;
 
 [ApiController]
 [Route("[controller]")]

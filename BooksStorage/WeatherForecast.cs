@@ -1,4 +1,4 @@
-namespace Books_Storage;
+namespace BooksStorage;
 
 public class WeatherForecast
 {

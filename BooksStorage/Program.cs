@@ -1,5 +1,7 @@
-using Books_Storage.Data;
+using BooksStorage.Data;
+using BooksStorage.Models;
 using Microsoft.EntityFrameworkCore;
+using BooksStorage.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(opt => { opt.UseInMemoryDatabase("InMem"); });
+builder.Services.Configure<BookStorageDatabaseSettings>(builder.Configuration.GetSection("BookStorageSettings"));
 
 var app = builder.Build();
 

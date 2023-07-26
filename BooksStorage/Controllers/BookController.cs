@@ -1,7 +1,7 @@
-using Books_Storage.Models;
+using BooksStorage.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Books_Storage.Controllers;
+namespace BooksStorage.Controllers;
 
 [ApiController]
 [Route("/api/[controller]", Name = "BookController")]
