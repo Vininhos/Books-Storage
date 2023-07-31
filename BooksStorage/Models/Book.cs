@@ -7,8 +7,7 @@ namespace BooksStorage.Models;
 public class Book
 {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public ObjectId Id { get; } = ObjectId.GenerateNewId();
+    public ObjectId Id { get; set; }
 
     [Required] public string Name { get; set; }
     [Required] public string Author { get; set; }

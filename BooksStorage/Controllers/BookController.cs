@@ -9,10 +9,12 @@ namespace BooksStorage.Controllers;
 public class BookController : ControllerBase
 {
     private readonly IBookRepository _bookRepository;
+    private readonly AppDbContext _context;
 
-    public BookController(IBookRepository bookRepository)
+    public BookController(IBookRepository bookRepository, AppDbContext context)
     {
         _bookRepository = bookRepository;
+        _context = context;
     }
 
     [HttpGet(Name = "Get All Books")]
