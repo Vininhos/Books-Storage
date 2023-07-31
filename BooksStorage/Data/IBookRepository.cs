@@ -4,6 +4,7 @@ namespace BooksStorage.Data;
 
 public interface IBookRepository
 {
-    List<Book> GetAllBooks();
-    void InsertBook(Book book);
+    Task<List<Book>> GetAllBooksAsync();
+    Task<Book> GetBookByIdAsync(string id);
+    Task InsertBookAsync(Book book);
 }

@@ -16,16 +16,12 @@ public class BookRepository : IBookRepository
         _bookCollection = mongoDatabase.GetCollection<Book>(bookStorageDatabaseSettings.Value.BooksCollectionName);
     }
 
-    public List<Book> GetAllBooks()
-    {
-        return _bookCollection.Find(_ => true).ToList();
-    }
+    public async Task<List<Book>> GetAllBooksAsync() =>
+        await _bookCollection.Find(_ => true).ToListAsync();
 
-    public void InsertBook(Book book)
-    {
-        if (book is null)
-            throw new ArgumentException("Book cannot be null.");
+    public async Task<Book> GetBookByIdAsync(string id) =>
+        await _bookCollection.Find(b => b.Id.ToString() == id).FirstOrDefaultAsync();
 
-        _bookCollection.InsertOne(book);
-    }
+    public async Task InsertBookAsync(Book book) =>
+        await _bookCollection.InsertOneAsync(book);
 }
