@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStorage", "BooksStorage\BooksStorage.csproj", "{50973281-5CAB-4953-B8D1-38FBD4AC4954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStorage.Tests", "BooksStorage.Tests\BooksStorage.Tests.csproj", "{E765878D-E0A0-46B6-A39E-42D8177D7C12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{50973281-5CAB-4953-B8D1-38FBD4AC4954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50973281-5CAB-4953-B8D1-38FBD4AC4954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50973281-5CAB-4953-B8D1-38FBD4AC4954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E765878D-E0A0-46B6-A39E-42D8177D7C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E765878D-E0A0-46B6-A39E-42D8177D7C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E765878D-E0A0-46B6-A39E-42D8177D7C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E765878D-E0A0-46B6-A39E-42D8177D7C12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
