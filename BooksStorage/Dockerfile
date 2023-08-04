@@ -1,20 +1,14 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/sdk:7.0 as build
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+COPY ["BooksStorage.csproj", "."]
+RUN dotnet restore
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["Books Storage/Books Storage.csproj", "Books Storage/"]
-RUN dotnet restore "Books Storage/Books Storage.csproj"
 COPY . .
-WORKDIR "/src/Books Storage"
-RUN dotnet build "Books Storage.csproj" -c Release -o /app/build
+RUN dotnet publish "BooksStorage.csproj" -c Release -o out
 
-FROM build AS publish
-RUN dotnet publish "Books Storage.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Books Storage.dll"]
+
+COPY --from=build /app/out .
+
+ENTRYPOINT ["dotnet", "BooksStorage.dll"]
