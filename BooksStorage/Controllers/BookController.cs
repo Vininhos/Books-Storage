@@ -1,4 +1,6 @@
+using AutoMapper;
 using BooksStorage.Data;
+using BooksStorage.DTOs;
 using BooksStorage.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,21 +12,23 @@ public class BookController : ControllerBase
 {
     private readonly IBookRepository _bookRepository;
     private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
 
-    public BookController(IBookRepository bookRepository, AppDbContext context)
+    public BookController(IBookRepository bookRepository, AppDbContext context, IMapper mapper)
     {
         _bookRepository = bookRepository;
         _context = context;
+        _mapper = mapper;
     }
 
     [HttpGet(Name = "Get All Books")]
-    public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks()
+    public async Task<ActionResult<IEnumerable<BookReadDTO>>> GetAllBooks()
     {
         Console.WriteLine("--> Getting All Books...");
 
         var books = await _bookRepository.GetAllBooksAsync();
 
-        return Ok(books);
+        return Ok(_mapper.Map<IEnumerable<BookReadDTO>>(books));
     }
 
     [HttpPost(Name = "Insert a Book")]
@@ -46,8 +50,8 @@ public class BookController : ControllerBase
 
         if (book is null)
             return NotFound("The book was not found or doesn't exist.");
-            
 
-        return Ok(book);
+
+        return Ok(_mapper.Map<BookReadDTO>(book));
     }
 }
