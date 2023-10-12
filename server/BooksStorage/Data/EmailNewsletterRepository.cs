@@ -8,15 +8,15 @@ public class EmailNewsletterRepository : IEmailNewsletterRepository
 {
     private readonly IMongoCollection<EmailNewsletter> _emailNewsletter;
 
-    public EmailNewsletterRepository(IOptions<EmailNewsletterDatabaseSettings> emailNewsletterDatabaseSettings)
+    public EmailNewsletterRepository(IOptions<BookStorageDatabaseSettings> databaseSettings)
     {
-        var mongoClient = new MongoClient(emailNewsletterDatabaseSettings.Value.ConnectionString);
-        var mongoDatabase = mongoClient.GetDatabase(emailNewsletterDatabaseSettings.Value.DatabaseName);
+        var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
+        var mongoDatabase = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
 
         _emailNewsletter =
-            mongoDatabase.GetCollection<EmailNewsletter>(emailNewsletterDatabaseSettings.Value.CollectionName);
+            mongoDatabase.GetCollection<EmailNewsletter>(databaseSettings.Value.EmailNewsletterCollectionName);
     }
 
-    public async Task Register(EmailNewsletter email) => 
+    public async Task Register(EmailNewsletter email) =>
         await _emailNewsletter.InsertOneAsync(email);
 }

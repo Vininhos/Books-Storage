@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.Configure<BookStorageDatabaseSettings>(builder.Configuration.GetSection("BookStorageSettings"));
-builder.Services.Configure<EmailNewsletterDatabaseSettings>(builder.Configuration.GetSection("EmailNewsletterDatabaseSettings"));
 builder.Services.AddSingleton<IBookRepository, BookRepository>();
 builder.Services.AddSingleton<IEmailNewsletterRepository, EmailNewsletterRepository>();
 builder.Services.AddControllers();

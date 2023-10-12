@@ -18,6 +18,7 @@ public class EmailNewsletterController : ControllerBase
         _emailNewsletterRepository = emailNewsletterRepository;
         _mapper = mapper;
     }
+
     [HttpPost(Name = "Register to Newsletter")]
     public async Task<ActionResult<EmailNewsletter>> Register(EmailNewsletterCreateDTO emailNewsletterCreateDto)
     {

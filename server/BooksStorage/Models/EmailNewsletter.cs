@@ -7,5 +7,5 @@ namespace BooksStorage.Models;
 public class EmailNewsletter
 {
     [BsonId] public ObjectId Id { get; set; }
-   [Required] public string EmailAddress { get; set; }
+    [Required] public string EmailAddress { get; set; }
 }

@@ -52,7 +52,7 @@ public class BookController : ControllerBase
 
         if (book is null)
             return NotFound("The book was not found or doesn't exist.");
-        
+
         return Ok(_mapper.Map<BookReadDTO>(book));
     }
 }
