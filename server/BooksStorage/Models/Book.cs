@@ -17,4 +17,6 @@ public class Book
 
     [Required] public decimal Price { get; set; }
     [Required] public string Category { get; set; }
+
+    public long ViewCount { get; set; } = 0;
 }
