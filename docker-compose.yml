@@ -22,6 +22,8 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
       - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes:
+      - ~/mongo/data:/data/db
   
   mailhog:
     image: mailhog/mailhog:latest

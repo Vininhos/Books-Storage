@@ -1,6 +1,8 @@
+using BooksStorage.Models;
+
 namespace BooksStorage.Data;
 
-public class IEmailNewsletterRepository
+public interface IEmailNewsletterRepository
 {
-    
+    public Task Register(EmailNewsletter email);
 }

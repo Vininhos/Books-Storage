@@ -32,9 +32,11 @@ public class BookController : ControllerBase
     }
 
     [HttpPost(Name = "Insert a Book")]
-    public async Task<ActionResult<Book>> InsertBook(Book book)
+    public async Task<ActionResult<Book>> InsertBook(BookCreateDTO bookCreateDto)
     {
         Console.WriteLine("--> Inserting a book...");
+
+        var book = _mapper.Map<Book>(bookCreateDto);
 
         await _bookRepository.InsertBookAsync(book);
 
@@ -50,8 +52,7 @@ public class BookController : ControllerBase
 
         if (book is null)
             return NotFound("The book was not found or doesn't exist.");
-
-
+        
         return Ok(_mapper.Map<BookReadDTO>(book));
     }
 }

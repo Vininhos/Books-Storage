@@ -13,7 +13,7 @@ public class BookRepository : IBookRepository
         var mongoClient = new MongoClient(bookStorageDatabaseSettings.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(bookStorageDatabaseSettings.Value.DatabaseName);
 
-        _bookCollection = mongoDatabase.GetCollection<Book>(bookStorageDatabaseSettings.Value.BooksCollectionName);
+        _bookCollection = mongoDatabase.GetCollection<Book>(bookStorageDatabaseSettings.Value.CollectionName);
     }
 
     public async Task<List<Book>> GetAllBooksAsync() =>
