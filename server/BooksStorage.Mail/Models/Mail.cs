@@ -1,7 +1,11 @@
+using System.Net.Mail;
+
 namespace BooksStorage.Mail.Models;
 
 public class Mail
 {
+    public MailAddress MailAddress { get; set; }
+    public MailMessage MailMessage { get; set; }
     public string Domain;
     public string Host;
     public int Port { get; set; }

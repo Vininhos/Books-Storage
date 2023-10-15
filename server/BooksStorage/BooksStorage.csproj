@@ -26,6 +26,10 @@
 
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BooksStorage.Mail\BooksStorage.Mail.csproj" />
+    </ItemGroup>
+
 
 
 
