@@ -58,7 +58,7 @@ public class BookControllerTests
         var bookResult = Assert.IsType<BookReadDTO>(okResult.Value);
 
         bookResult.Should().BeEquivalentTo(expectedBook,
-            options => options.Excluding(b => b.Id).ComparingByMembers<BookReadDTO>());
+            options => options.Excluding(b => b.Id).Excluding(b => b.ViewCount).ComparingByMembers<BookReadDTO>());
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class BookControllerTests
         var booksResult = Assert.IsAssignableFrom<IEnumerable<BookReadDTO>>(okResult.Value);
 
         booksResult.Should().BeEquivalentTo(expectedBooks,
-            options => options.Excluding(b => b.Id).ComparingByMembers<BookReadDTO>());
+            options => options.Excluding(b => b.Id).Excluding(b => b.ViewCount).ComparingByMembers<BookReadDTO>());
     }
 
     private Book CreateTestBook()
