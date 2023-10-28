@@ -1,4 +1,5 @@
 using BooksStorage.Models;
+using BooksStorage.Models.Book;
 using MongoDB.Bson;
 
 namespace BooksStorage.Data;

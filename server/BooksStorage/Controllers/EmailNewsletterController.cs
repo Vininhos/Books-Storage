@@ -2,6 +2,7 @@ using AutoMapper;
 using BooksStorage.Data;
 using BooksStorage.DTOs;
 using BooksStorage.Models;
+using BooksStorage.Models.Mail;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BooksStorage.Controllers;

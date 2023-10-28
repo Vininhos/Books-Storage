@@ -1,4 +1,5 @@
 using BooksStorage.Models;
+using BooksStorage.Models.Mail;
 
 namespace BooksStorage.Data;
 

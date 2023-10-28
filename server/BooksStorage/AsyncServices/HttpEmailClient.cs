@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using BooksStorage.Models.Mail;
 
 namespace BooksStorage.AsyncServices;
 
@@ -14,17 +15,16 @@ public class HttpEmailClient : IHttpEmailClient
         _configuration = configuration;
     }
 
-    public async Task SendMailRequest(Mail.Models.Mail mail)
+    public async Task SendMailRequest(Email email)
     {
         try
         {
-            var httpContent = new StringContent(JsonSerializer.Serialize(mail), Encoding.UTF8, "application/json");
+            var httpContent = new StringContent(JsonSerializer.Serialize(email), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync(_configuration["MailerService"], httpContent);
 
-            if (response.IsSuccessStatusCode)
-                Console.WriteLine("--> Sync POST to MailerService.");
-            else
-                Console.WriteLine("--> Sync POST to MailerService failed.");
+            Console.WriteLine(response.IsSuccessStatusCode
+                ? "--> Sync POST to MailerService."
+                : "--> Sync POST to MailerService failed.");
         }
         catch (Exception ex)
         {

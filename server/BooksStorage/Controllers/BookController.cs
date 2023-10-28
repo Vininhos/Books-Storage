@@ -2,6 +2,7 @@ using AutoMapper;
 using BooksStorage.Data;
 using BooksStorage.DTOs;
 using BooksStorage.Models;
+using BooksStorage.Models.Book;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BooksStorage.Controllers;
@@ -39,6 +40,21 @@ public class BookController : ControllerBase
         var book = _mapper.Map<Book>(bookCreateDto);
 
         await _bookRepository.InsertBookAsync(book);
+
+        return CreatedAtAction(nameof(InsertBook), new { id = book.Id }, book);
+    }
+    
+    public async Task<ActionResult<Book>> InsertBookAndSendEmail(BookCreateDTO bookCreateDto, string email)
+    {
+        Console.WriteLine("--> Inserting a book...");
+
+        var book = _mapper.Map<Book>(bookCreateDto);
+
+        await _bookRepository.InsertBookAsync(book);
+
+        Console.WriteLine("Sending e-mail...");
+
+        await _bookRepository.SendEmailRequest(email, book);
 
         return CreatedAtAction(nameof(InsertBook), new { id = book.Id }, book);
     }

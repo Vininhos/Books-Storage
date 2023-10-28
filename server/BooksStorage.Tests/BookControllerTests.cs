@@ -3,6 +3,7 @@ using BooksStorage.Controllers;
 using BooksStorage.Data;
 using BooksStorage.DTOs;
 using BooksStorage.Models;
+using BooksStorage.Models.Book;
 using BooksStorage.Profiles;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;

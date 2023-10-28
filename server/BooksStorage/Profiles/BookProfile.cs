@@ -1,6 +1,7 @@
 using AutoMapper;
 using BooksStorage.DTOs;
 using BooksStorage.Models;
+using BooksStorage.Models.Book;
 
 namespace BooksStorage.Profiles;
 

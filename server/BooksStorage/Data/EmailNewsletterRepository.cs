@@ -1,4 +1,6 @@
 using BooksStorage.Models;
+using BooksStorage.Models.Book;
+using BooksStorage.Models.Mail;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

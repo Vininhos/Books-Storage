@@ -1,4 +1,4 @@
-namespace BooksStorage.Models;
+namespace BooksStorage.Models.Book;
 
 public class BookStorageDatabaseSettings
 {

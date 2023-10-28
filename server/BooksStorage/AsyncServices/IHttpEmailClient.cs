@@ -1,6 +1,8 @@
+using BooksStorage.Models.Mail;
+
 namespace BooksStorage.AsyncServices;
 
 public interface IHttpEmailClient
 {
-    Task SendMailRequest(Mail.Models.Mail mail);
+    Task SendMailRequest(Email email);
 }
