@@ -1,5 +1,6 @@
 using System.Net.Mail;
 using System.Text.Json;
+using BooksStorage.Mail.Data;
 using BooksStorage.Mail.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,29 +10,20 @@ namespace BooksStorage.Mail.Controllers;
 [Route("Controller")]
 public class MailController : ControllerBase
 {
-    private readonly IConfiguration _configuration;
+    private readonly IMailRepository _mailRepository;
 
-    public MailController(IConfiguration configuration)
+    public MailController(IMailRepository mailRepository)
     {
-        _configuration = configuration;
+        _mailRepository = mailRepository;
     }
+
     [HttpPost(Name = "SendMail")]
-    public ActionResult SendMail(string mailMessageRequest)
+    public ActionResult SendMail(Email email)
     {
-        Email email = JsonSerializer.Deserialize<Email>(mailMessageRequest);
-        MailMessage m = new MailMessage("dontreply@bookstorage.com", "hi@mom.com");
-        m.Subject = "Thanks for your help!";
-        m.Body = "Thanks for adding a book to our website! We're glad to have you as a contributor.";
-        SmtpClient smtpClient = new SmtpClient("localhost", 1025);
-        try
-        {
-            smtpClient.Send(m);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex);
-        }
+        var emailSent = _mailRepository.SendMail(email);
+        if (emailSent.IsCompletedSuccessfully)
+            return Ok("Email was sent.");
         
-        return Ok("Email was sent.");
+        return BadRequest("Failed sending e-mail");
     }
 }

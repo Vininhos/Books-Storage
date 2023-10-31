@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using BooksStorage.Models.Mail;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BooksStorage.AsyncServices;
 
@@ -9,12 +10,13 @@ public class HttpEmailClient : IHttpEmailClient
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
 
-    public HttpEmailClient(HttpClient httpClient, IConfiguration configuration)
+    public HttpEmailClient(IConfiguration configuration)
     {
-        _httpClient = httpClient;
+        _httpClient = new HttpClient();
         _configuration = configuration;
     }
 
+    [HttpPost]
     public async Task SendMailRequest(Email email)
     {
         try
