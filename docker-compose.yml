@@ -27,7 +27,7 @@ services:
       - ./mongo/data:/data/db
 
   booksstoragemail:
-    image: booksstorage-mail:1.0.0
+    image: viniciusrw/booksstorage-mail:1.0.0
     restart: always
     build:
       context: server/BooksStorage.Mail
