@@ -1,35 +1,38 @@
 using System.Net.Mail;
 using BooksStorage.Mail.Models;
+using Microsoft.Extensions.Options;
 
 namespace BooksStorage.Mail.Data;
 
 public class MailRepository : IMailRepository
 {
-    private readonly IConfiguration _configuration;
+    private readonly MailHogSettings _mailHogSettings;
 
-    public MailRepository(IConfiguration configuration)
+    public MailRepository(IOptions<MailHogSettings> mailHogSettings)
     {
-        _configuration = configuration;
+        _mailHogSettings = new();
+        _mailHogSettings.Address = mailHogSettings.Value.Address;
+        _mailHogSettings.Port = mailHogSettings.Value.Port;
     }
 
-    public async Task<bool> SendMail(Email email)
+    public Task<bool> SendMail(Email email)
     {
         MailMessage mailMessage = new MailMessage(email.From, email.To);
-
         mailMessage.Subject = email.Subject;
         mailMessage.Body = email.Body;
-        SmtpClient smtpClient = new SmtpClient(_configuration["Address"], int.Parse(_configuration["Port"]));
+        
+        SmtpClient smtpClient = new SmtpClient(_mailHogSettings.Address, _mailHogSettings.Port);
         
         try
-        {
-           await smtpClient.SendMailAsync(mailMessage);
+        { 
+            smtpClient.Send(mailMessage);
         }
         catch (Exception ex)
         {
             Console.WriteLine("Failed to send email: {0}", ex);
-            return false;
+            return Task.FromResult(false);
         }
 
-        return true;
+        return Task.FromResult(true);
     }
 }

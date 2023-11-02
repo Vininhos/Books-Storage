@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BooksStorage.Mail.Controllers;
 
 [ApiController]
-[Route("Controller")]
+[Route("/api/[controller]")]
 public class MailController : ControllerBase
 {
     private readonly IMailRepository _mailRepository;

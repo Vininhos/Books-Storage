@@ -4,7 +4,8 @@ services:
     image: viniciusrw/booksstorage:1.0.0
     restart: always
     build:
-      dockerfile: /BooksStorage/Dockerfile
+      context: server/BooksStorage
+      dockerfile: Dockerfile
     ports:
       - "8080:80"
     deploy: 
@@ -23,7 +24,19 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
       - MONGO_INITDB_ROOT_PASSWORD=secret
     volumes:
-      - ~/mongo/data:/data/db
+      - ./mongo/data:/data/db
+
+  booksstoragemail:
+    image: booksstorage-mail:1.0.0
+    restart: always
+    build:
+      context: server/BooksStorage.Mail
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+    deploy:
+      mode: replicated
+      replicas: 1
   
   mailhog:
     image: mailhog/mailhog:latest
