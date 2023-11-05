@@ -1,25 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mailhog
+  name: booksstorage-mail
 spec:
   selector:
     matchLabels:
-      app: mailhog
+      app: booksstorage-mail
   template:
     metadata:
       labels:
-        app: mailhog
+        app: booksstorage-mail
     spec:
       containers:
-      - name: mailhog
-        image: mailhog/mailhog:latest
+      - name: booksstorage-mail
+        image: viniciusrw/booksstorage-mail:1.0.0
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 1025
-          name: smtp
-        - containerPort: 8025
-          name: http
+        - containerPort: 80
+          name: apiport

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: booksstorage-svc
+  name: booksstoragemail
 spec:
   selector:
-    app: booksstorage
+    app: booksstorage-mail
   ports:
   - port: 80
     targetPort: apiport
