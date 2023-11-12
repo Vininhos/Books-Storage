@@ -1,7 +1,7 @@
 version: '3'
 services:
   booksstorage:
-    image: viniciusrw/booksstorage:1.0.0
+    image: viniciusrw/booksstorage:latest
     restart: always
     build:
       context: server/BooksStorage
@@ -27,7 +27,7 @@ services:
       - ./mongo/data:/data/db
 
   booksstoragemail:
-    image: viniciusrw/booksstorage-mail:1.0.0
+    image: viniciusrw/booksstorage-mail:latest
     restart: always
     build:
       context: server/BooksStorage.Mail
