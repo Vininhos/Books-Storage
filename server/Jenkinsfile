@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+  stages {
+    stage ('Clean Workspace') {
+      steps {
+        cleanWs()
+      }
+    }
+
+    stage ('Git Checkout') {
+      steps {
+        checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '13a7fb4a-0a05-40f7-9b0d-7941c1d8c51a', url: 'https://github.com/Vininhos/Books-Storage']])
+      }
+    }
+
+    stage ('Build API Image') {
+      steps {
+        script {
+          docker.build("viniciusrw/booksstorage:latest", "${workspace}/server/BooksStorage") 
+        }
+      }
+    }
+
+    stage ('Build Mail Image') {
+      steps {
+        script {
+          docker.build("viniciusrw/booksstorage-mail:latest", "${workspace}/server/BooksStorage.Mail") 
+        }
+      }
+    }
+  }
+}
