@@ -7,7 +7,7 @@ services:
       context: server/BooksStorage
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "8079:80"
     deploy: 
       mode: replicated
       replicas: 1
