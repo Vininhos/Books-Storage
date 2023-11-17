@@ -8,7 +8,7 @@ import { Book } from '../models/book';
 })
 export class BookService {
 
-  url: string = 'http://localhost:8080/api/Book'
+  url: string = 'http://localhost:8079/api/Book'
   constructor(private httpClient: HttpClient) { }
 
   httpOptions = {
@@ -27,7 +27,7 @@ export class BookService {
       errorMessage = error.error.message;
     } else {
       // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+      errorMessage = `Código do erro: ${error.status}, ` + `mensagem: ${error.message}`;
     }
     console.log(errorMessage);
     return throwError(errorMessage);
