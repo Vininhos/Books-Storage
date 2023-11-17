@@ -14,6 +14,20 @@ pipeline {
       }
     }
 
+    stage ('Test Code') {
+      steps {
+        script {
+          def testResult = sh (returnStdout: true, script: "dotnet test ${workspace}/server/BooksStorage.Tests | tail -1 | awk '{print \$1;}'")
+
+          if (testResult.trim().equals("Passed!")) {
+            echo 'Tests were a success!'
+          } else {
+              error 'Tests failed'
+          }
+        }
+      }
+    }
+
     stage ('Build API Image') {
       steps {
         script {
