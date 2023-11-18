@@ -3,13 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApicallerComponent } from './apicaller/apicaller.component';
 import {HttpClientModule} from '@angular/common/http';
+import { BookFormComponent } from './book-form/book-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ApicallerComponent
+    BookFormComponent
   ],
   imports: [
     BrowserModule,
