@@ -1,3 +1,5 @@
 mongo/
 .idea/
 .vscode/
+client/node_modules/
+client/.angular/
