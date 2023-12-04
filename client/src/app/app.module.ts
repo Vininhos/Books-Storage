@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { BookFormComponent } from './book-form/book-form.component';
 import { BookComponent } from './book/book.component';
+import { provideRouter } from '@angular/router';
+import {routes} from './app.routes';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,7 @@ import { BookComponent } from './book/book.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [provideRouter(routes)],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
