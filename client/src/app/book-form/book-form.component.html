@@ -1,55 +1,78 @@
-<!--<br />
-<ul>
-    <li *ngFor="let book of books">{{book | json}}}</li>
-</ul> -->
-<main class="container">
-    <div class="addbook">
-      <h1>Add New Books</h1>
-        <form>
-            <div class="grid">
-                <label for="bookname">
-                    Book Name
-                    <input type="text" id="bookname" name="bookname" placeholder="Book Name" required>
-                </label>
+<div class="addbook">
+  <h1>Add New Books</h1>
+  <form>
+    <div class="grid">
+      <label for="bookname">
+        Book Name
+        <input
+          type="text"
+          id="bookname"
+          name="bookname"
+          placeholder="Book Name"
+          required
+        />
+      </label>
 
-                <label for="author">
-                    Last name
-                    <input type="text" id="author" name="author" placeholder="Author" required>
-                </label>
-            </div>
-
-            <div class="grid">
-                <label for="yearofpublication">
-                    Year of Publication
-                    <input type="text" id="yearofpublication" name="yearofpublication" placeholder="Year of Publication" required>
-                </label>
-
-                <label for="price">
-                    Price
-                    <input type="text" id="price" name="price" placeholder="Price" required>
-                </label>
-            </div>
-
-            <div class="grid">
-                <label for="category">
-                    Category
-                    <select id="category" required>
-                        <option value="" selected>Selecione uma categoria...</option>
-                        <option>Ação</option>
-                        <option>Drama</option>
-                        <option>Suspense</option>
-                        <option>Programação</option>
-                    </select>
-                </label>
-
-                <label for="email">
-                    Email
-                    <input type="email" id="email" name="email" placeholder="Email" required>
-                </label>
-            </div>
-            
-            <button type="submit">Submit</button>
-
-        </form>
+      <label for="author">
+        Last name
+        <input
+          type="text"
+          id="author"
+          name="author"
+          placeholder="Author"
+          required
+        />
+      </label>
     </div>
-</main>
+
+    <div class="grid">
+      <label for="yearofpublication">
+        Year of Publication
+        <input
+          type="text"
+          id="yearofpublication"
+          name="yearofpublication"
+          placeholder="Year of Publication"
+          required
+        />
+      </label>
+
+      <label for="price">
+        Price
+        <input
+          type="text"
+          id="price"
+          name="price"
+          placeholder="Price"
+          required
+        />
+      </label>
+    </div>
+
+    <div class="grid">
+      <label for="category">
+        Category
+        <select id="category" required>
+          <option value="" selected>Selecione uma categoria...</option>
+          <option>Ação</option>
+          <option>Drama</option>
+          <option>Suspense</option>
+          <option>Programação</option>
+        </select>
+      </label>
+
+      <label for="email">
+        Email
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
+      </label>
+    </div>
+
+    <button type="submit" (click)="getAllBooks()">Submit</button>
+  </form>
+</div>

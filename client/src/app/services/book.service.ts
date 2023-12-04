@@ -1,35 +1,28 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, retry, throwError } from 'rxjs';
 import { Book } from '../models/book';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class BookService {
+  bookList: Book[] = [];
+  url = "http://localhost:8079";
 
-  url: string = 'http://localhost:8079/api/Book'
-  constructor(private httpClient: HttpClient) { }
+  constructor() {
+    axios.defaults.baseURL = this.url;
+   }
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+  async getAllBooks(): Promise<Book[] | undefined> {
+    return axios.get("/api/book", {
+      headers: {
+        "Access-Control-Allow-Origin": "true"
+      }
+    });
   }
 
-  getBooks(): Observable<Book[]> {
-    return this.httpClient.get<Book[]>(this.url).pipe(retry(2), catchError(this.handleError)
-    );
+  getBookById(id: string): Book | undefined {
+    return this.bookList.find(book => book.id === id);
   }
-
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Erro ocorreu no lado do client
-      errorMessage = error.error.message;
-    } else {
-      // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `mensagem: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  };
 }
