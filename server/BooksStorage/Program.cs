@@ -21,7 +21,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin",
-        corsPolicyBuilder => corsPolicyBuilder.WithOrigins("http://localhost:4200") // Substitua pelo domínio do seu aplicativo Angular
+        corsPolicyBuilder => corsPolicyBuilder.WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });

@@ -10,7 +10,7 @@ export class BookFormComponent {
   bookService: BookService = inject(BookService);
 
   constructor() {}
-  
+
   getAllBooks() {
     this.bookService
       .getAllBooks()
