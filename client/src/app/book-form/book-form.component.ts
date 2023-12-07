@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { BookService } from "../services/book.service";
 
 @Component({
@@ -7,14 +7,18 @@ import { BookService } from "../services/book.service";
   styleUrls: ["./book-form.component.scss"],
 })
 export class BookFormComponent {
-  constructor(private bookService: BookService) {}
+  bookService: BookService = inject(BookService);
+
+  constructor() {}
+  
   getAllBooks() {
-    this.bookService.getAllBooks()
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    })
+    this.bookService
+      .getAllBooks()
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }

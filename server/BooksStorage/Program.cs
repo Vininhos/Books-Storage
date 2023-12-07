@@ -18,6 +18,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(opt => { opt.UseInMemoryDatabase("InMem"); });
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin",
+        corsPolicyBuilder => corsPolicyBuilder.WithOrigins("http://localhost:4200") // Substitua pelo domínio do seu aplicativo Angular
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,7 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseRouting();
 
-app.UseCors("Access-Control-Allow-Origin");
+app.UseCors("AllowOrigin");
 
 app.UseAuthorization();
 

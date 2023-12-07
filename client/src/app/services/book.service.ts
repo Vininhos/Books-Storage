@@ -1,28 +1,23 @@
-import { Injectable } from '@angular/core';
-import { Book } from '../models/book';
-import axios from 'axios';
+import { Injectable } from "@angular/core";
+import { Book } from "../models/book";
+import axios from "axios";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-
 export class BookService {
   bookList: Book[] = [];
-  url = "http://localhost:8079";
+  url = "http://localhost:5240";
 
   constructor() {
-    axios.defaults.baseURL = this.url;
-   }
+    //axios.defaults.baseURL = this.url;
+  }
 
-  async getAllBooks(): Promise<Book[] | undefined> {
-    return axios.get("/api/book", {
-      headers: {
-        "Access-Control-Allow-Origin": "true"
-      }
-    });
+  getAllBooks() {
+    return axios.get("http://localhost:5240/api/book");
   }
 
   getBookById(id: string): Book | undefined {
-    return this.bookList.find(book => book.id === id);
+    return this.bookList.find((book) => book.id === id);
   }
 }
