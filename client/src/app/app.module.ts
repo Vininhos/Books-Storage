@@ -9,6 +9,7 @@ import { BookComponent } from './book/book.component';
 import { provideRouter } from '@angular/router';
 import {routes} from './app.routes';
 import axios from 'axios';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import axios from 'axios';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [provideRouter(routes)],
   bootstrap: [AppComponent]

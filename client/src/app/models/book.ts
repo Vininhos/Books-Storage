@@ -1,8 +1,9 @@
-export interface Book {
-    id: string;
-    name: string;
+export class Book {
+    public id: string;
+    bookName: string;
     author: string;
-    publishYear: number;
+    yearOfPublication: number;
     price: number;
     category: string;
+    email: string;
 }
