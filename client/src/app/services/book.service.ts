@@ -1,23 +1,37 @@
 import { Injectable } from "@angular/core";
-import { Book } from "../models/book";
+import { BookReadDto } from "../models/book-read-dto";
+
 import axios from "axios";
+import { BookCreateDto } from "../models/book-create-dto";
 
 @Injectable({
   providedIn: "root",
 })
 export class BookService {
-  bookList: Book[] = [];
+  bookList: BookReadDto[] = [];
   url = "http://localhost:5240";
 
   constructor() {
     //axios.defaults.baseURL = this.url;
   }
 
-  getAllBooks() {
-    return axios.get("http://localhost:5240/api/book");
+  insertBook(book: BookCreateDto) {
+    console.log(JSON.stringify(book));
+    axios.post(this.url + "/api/book", JSON.stringify(book), {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      console.log("POST at " + this.url + "with response: " + response);
+    });
   }
 
-  getBookById(id: string): Book | undefined {
+  async getAllBooks() {
+    const response = axios.get(this.url+"/api/book");
+    return response;
+  }
+
+  getBookById(id: string): BookReadDto | undefined {
     return this.bookList.find((book) => book.id === id);
   }
 }

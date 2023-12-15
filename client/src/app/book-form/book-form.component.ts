@@ -1,7 +1,7 @@
 import { Component, inject, Input } from "@angular/core";
 import { BookService } from "../services/book.service";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { Book } from "../models/book";
+import { BookCreateDto } from "../models/book-create-dto";
 
 @Component({
   selector: "app-book-form",
@@ -12,20 +12,30 @@ export class BookFormComponent {
   bookService: BookService = inject(BookService);
 
   bookForm = new FormGroup({
-    bookName: new FormControl(""),
+    name: new FormControl(""),
     author: new FormControl(""),
-    yearOfPublication: new FormControl(""),
+    publicationYear: new FormControl(""),
     price: new FormControl(""),
     category: new FormControl(""),
     email: new FormControl(""),
-  });
+  }) as FormGroup & {value: BookCreateDto};
+
+  newBook: BookCreateDto = new BookCreateDto();
 
   constructor() {}
 
   submitBook() {
-    console.log(
-      `Book test: ${this.bookForm.get('category')!.value}`
-    );
+    // if (this.bookForm.invalid) {
+    //   return;
+    // }
+
+    this.newBook = this.bookForm.value;
+
+    console.log(this.newBook);
+
+    //console.log(this.bookService.getAllBooks());
+
+    this.bookService.insertBook(this.newBook);
   }
 
   getAllBooks() {

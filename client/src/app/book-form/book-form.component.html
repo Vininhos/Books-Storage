@@ -2,15 +2,15 @@
   <h1>Add New Books</h1>
   <form [formGroup]="bookForm" (ngSubmit)="submitBook()">
     <div class="grid">
-      <label for="bookname">
+      <label for="name">
         Book Name
         <input
           type="text"
-          id="bookname"
-          name="bookname"
+          id="name"
+          name="name"
           placeholder="Book Name"
           required
-          formControlName="bookName"
+          formControlName="name"
         />
       </label>
 
@@ -28,15 +28,15 @@
     </div>
 
     <div class="grid">
-      <label for="yearofpublication">
+      <label for="publicationYear">
         Year of Publication
         <input
           type="text"
-          id="yearofpublication"
-          name="yearofpublication"
+          id="publicationYear"
+          name="publicationYear"
           placeholder="Year of Publication"
           required
-          formControlName="yearOfPublication"
+          formControlName="publicationYear"
         />
       </label>
 
@@ -78,6 +78,6 @@
       </label>
     </div>
 
-    <button type="submit" [disabled]="!bookForm.valid">Submit</button>
+    <button type="submit" >Submit</button>
   </form>
 </div>
