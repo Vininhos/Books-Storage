@@ -1,33 +1,47 @@
 import { Injectable } from "@angular/core";
 import { BookReadDto } from "../models/book-read-dto";
 
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 import { BookCreateDto } from "../models/book-create-dto";
+import Swal from "sweetalert2";
 
 @Injectable({
   providedIn: "root",
 })
 export class BookService {
   bookList: BookReadDto[] = [];
-  url = "http://localhost:5240";
+  url = "http://localhost:8079";
 
   constructor() {
-    //axios.defaults.baseURL = this.url;
+    axios.defaults.baseURL = this.url;
   }
 
   insertBook(book: BookCreateDto) {
-    console.log(JSON.stringify(book));
-    axios.post(this.url + "/api/book", JSON.stringify(book), {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
-      console.log("POST at " + this.url + "with response: " + response);
-    });
+    axios
+      .post(this.url + "/api/book", JSON.stringify(book), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status === HttpStatusCode.Created) {
+          Swal.fire({
+            title: "Book added!",
+            text: "Book successfully addded! Thanks for you contribution ❤️",
+            icon: "success",
+          });
+        }
+      }).catch(() => {
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong. Try contacting the developers.",
+          icon: "error",
+        });
+      });
   }
 
   async getAllBooks() {
-    const response = axios.get(this.url+"/api/book");
+    const response = axios.get(this.url + "/api/book");
     return response;
   }
 
