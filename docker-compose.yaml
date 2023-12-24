@@ -25,6 +25,17 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=secret
     volumes:
       - ./mongo/data:/data/db
+  
+  booksstorageclient:
+    image: viniciusrw/booksstorageclient:latest
+    restart: always
+    build: 
+      context: client/
+      dockerfile: Dockerfile
+    ports:
+      - "8078:80"
+    deploy:
+      mode: global
 
   booksstoragemail:
     image: viniciusrw/booksstorage-mail:latest
