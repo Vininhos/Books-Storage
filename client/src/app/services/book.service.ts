@@ -4,13 +4,14 @@ import { BookReadDto } from "../models/book-read-dto";
 import axios, { HttpStatusCode } from "axios";
 import { BookCreateDto } from "../models/book-create-dto";
 import Swal from "sweetalert2";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class BookService {
   bookList: BookReadDto[] = [];
-  url = "http://localhost:8079";
+  url = environment.apiUrl;
 
   constructor() {
     axios.defaults.baseURL = this.url;
@@ -24,7 +25,7 @@ export class BookService {
         },
       })
       .then((response) => {
-        if (response.status === HttpStatusCode.Created) {
+        if (response.status == HttpStatusCode.Created) {
           Swal.fire({
             title: "Book added!",
             text: "Book successfully addded! Thanks for you contribution ❤️",
@@ -40,7 +41,7 @@ export class BookService {
       });
   }
 
-  async getAllBooks() {
+  getAllBooks() {
     const response = axios.get(this.url + "/api/book");
     return response;
   }
