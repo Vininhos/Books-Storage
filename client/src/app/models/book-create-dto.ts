@@ -4,7 +4,7 @@ export class BookCreateDto {
     public publicationYear: number;
     public price: number;
     public category: string;
-    //public email: string;
+    public email: string;
 
     constructor(
         name: string = '',
@@ -12,13 +12,13 @@ export class BookCreateDto {
         yearOfPublication: number = 0o000,
         price: number = 0,
         category: string = '',
-        //email: string = ''
+        email: string = ''
       ) {
         this.name = name;
         this.author = author;
         this.publicationYear = yearOfPublication;
         this.price = price;
         this.category = category;
-        //this.email = email;
+        this.email = email;
       }
 }
