@@ -9,12 +9,14 @@ import { BookComponent } from './book/book.component';
 import { provideRouter } from '@angular/router';
 import {routes} from './app.routes';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BookHomeComponent } from './book-home/book-home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookFormComponent,
-    BookComponent
+    BookComponent,
+    BookHomeComponent
   ],
   imports: [
     BrowserModule,
