@@ -5,7 +5,6 @@ export class BookReadDto {
   public publicationYear: number;
   public price: number;
   public category: string;
-  public email: string;
 
   constructor(
     id: string,
@@ -14,7 +13,6 @@ export class BookReadDto {
     publicationYear: number,
     price: number,
     category: string,
-    email: string
   ) {
     this.id = id;
     this.name = name;
@@ -22,6 +20,5 @@ export class BookReadDto {
     this.publicationYear = publicationYear;
     this.price = price;
     this.category = category;
-    this.email = email;
   }
 }
