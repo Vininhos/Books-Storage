@@ -2,6 +2,7 @@ import { Component, inject, Input } from "@angular/core";
 import { BookService } from "../services/book.service";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { BookCreateDto } from "../models/book-create-dto";
+import { BookReadDto } from "../models/book-read-dto";
 
 @Component({
   selector: "app-book-form",
@@ -22,7 +23,7 @@ export class BookFormComponent {
 
   newBook: BookCreateDto = new BookCreateDto();
 
-  constructor() {}
+  constructor() { }
 
   submitBook() {
     // if (this.bookForm.invalid) {
@@ -34,7 +35,4 @@ export class BookFormComponent {
     this.bookService.insertBook(this.newBook);
   }
 
-  getAllBooks() {
-    this.bookService.getAllBooks();
-  }
 }

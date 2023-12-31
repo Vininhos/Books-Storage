@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BookReadDto } from '../models/book-read-dto';
+import { BookService } from '../services/book.service';
 
 @Component({
   selector: 'app-book-home',
   templateUrl: './book-home.component.html',
   styleUrls: ['./book-home.component.scss']
 })
-export class BookHomeComponent {
-  books: Array<BookReadDto>;
+export class BookHomeComponent implements OnInit {
+  bookService: BookService = inject(BookService);
+  books: Array<BookReadDto> = [];
 
-  constructor() {
-    this.books = [
-      new BookReadDto("1", 'Angular Development', "Wagner Less", 1999, 79.99, "Programming"),
-      new BookReadDto("2", '.NET Development', "Yogo Wiz", 2023, 100.99, "Programming")
-    ]
+  ngOnInit() {
+    this.getAllBooks();
+  }
+
+  async getAllBooks() {
+    this.books = await this.bookService.getAllBooks();
   }
 }

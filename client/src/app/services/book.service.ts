@@ -41,9 +41,20 @@ export class BookService {
       });
   }
 
-  getAllBooks() {
-    const response = axios.get(this.url + "/api/book");
-    return response;
+  async getAllBooks(): Promise<Array<BookReadDto>> {
+    try {
+      const response = await axios.get<Array<BookReadDto>>(this.url + "/api/book");
+
+      if (response.status === HttpStatusCode.Ok) {
+        return response.data;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      // Lidar com erros, se necessário
+      console.error("Erro na chamada da API:", error);
+      return [];
+    }
   }
 
   getBookById(id: string): BookReadDto | undefined {
