@@ -1,5 +1,6 @@
 using AutoMapper;
 using BooksStorage.DTOs;
+using BooksStorage.DTOs.EmailNewsletter;
 using BooksStorage.Models;
 using BooksStorage.Models.Mail;
 
@@ -9,6 +10,6 @@ public class EmailNewsletterProfile : Profile
 {
     public EmailNewsletterProfile()
     {
-        CreateMap<EmailNewsletterCreateDTO, EmailNewsletter>();
+        CreateMap<EmailNewsletterCreateDto, EmailNewsletter>();
     }
 }

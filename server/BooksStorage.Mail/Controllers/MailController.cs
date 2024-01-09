@@ -1,5 +1,4 @@
 using System.Net.Mail;
-using System.Text.Json;
 using BooksStorage.Mail.Data;
 using BooksStorage.Mail.Models;
 using Microsoft.AspNetCore.Mvc;

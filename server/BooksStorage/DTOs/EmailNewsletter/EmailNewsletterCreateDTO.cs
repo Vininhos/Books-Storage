@@ -1,6 +1,6 @@
-namespace BooksStorage.DTOs;
+namespace BooksStorage.DTOs.EmailNewsletter;
 
-public class EmailNewsletterCreateDTO
+public class EmailNewsletterCreateDto
 {
     public string EmailAddress { get; set; }
 }

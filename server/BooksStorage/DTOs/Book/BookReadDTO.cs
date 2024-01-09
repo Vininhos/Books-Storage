@@ -1,8 +1,6 @@
-using System.ComponentModel.DataAnnotations;
+namespace BooksStorage.DTOs.Book;
 
-namespace BooksStorage.DTOs;
-
-public class BookReadDTO
+public class BookReadDto
 {
     public string Name { get; set; }
     public string Author { get; set; }

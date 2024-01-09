@@ -1,7 +1,6 @@
 using AutoMapper;
 using BooksStorage.Data;
-using BooksStorage.DTOs;
-using BooksStorage.Models;
+using BooksStorage.DTOs.EmailNewsletter;
 using BooksStorage.Models.Mail;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +20,7 @@ public class EmailNewsletterController : ControllerBase
     }
 
     [HttpPost(Name = "Register to Newsletter")]
-    public async Task<ActionResult<EmailNewsletter>> Register(EmailNewsletterCreateDTO emailNewsletterCreateDto)
+    public async Task<ActionResult<EmailNewsletter>> Register(EmailNewsletterCreateDto emailNewsletterCreateDto)
     {
         Console.WriteLine("--> Registering email {0}...", emailNewsletterCreateDto.EmailAddress);
 

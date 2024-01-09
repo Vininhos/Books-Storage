@@ -2,6 +2,7 @@ using AutoMapper;
 using BooksStorage.Controllers;
 using BooksStorage.Data;
 using BooksStorage.DTOs;
+using BooksStorage.DTOs.Book;
 using BooksStorage.Models;
 using BooksStorage.Models.Book;
 using BooksStorage.Profiles;
@@ -56,10 +57,10 @@ public class BookControllerTests
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result.Result);
 
-        var bookResult = Assert.IsType<BookReadDTO>(okResult.Value);
+        var bookResult = Assert.IsType<BookReadDto>(okResult.Value);
 
         bookResult.Should().BeEquivalentTo(expectedBook,
-            options => options.Excluding(b => b.Id).Excluding(b => b.ViewCount).ComparingByMembers<BookReadDTO>());
+            options => options.Excluding(b => b.Id).Excluding(b => b.ViewCount).ComparingByMembers<BookReadDto>());
     }
 
     [Fact]
@@ -77,10 +78,10 @@ public class BookControllerTests
         //Assert
         var okResult = Assert.IsType<OkObjectResult>(result.Result);
 
-        var booksResult = Assert.IsAssignableFrom<IEnumerable<BookReadDTO>>(okResult.Value);
+        var booksResult = Assert.IsAssignableFrom<IEnumerable<BookReadDto>>(okResult.Value);
 
         booksResult.Should().BeEquivalentTo(expectedBooks,
-            options => options.Excluding(b => b.Id).Excluding(b => b.ViewCount).ComparingByMembers<BookReadDTO>());
+            options => options.Excluding(b => b.Id).Excluding(b => b.ViewCount).ComparingByMembers<BookReadDto>());
     }
 
     private Book CreateTestBook()

@@ -1,7 +1,6 @@
 using AutoMapper;
 using BooksStorage.Data;
-using BooksStorage.DTOs;
-using BooksStorage.Models;
+using BooksStorage.DTOs.Book;
 using BooksStorage.Models.Book;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,17 +22,17 @@ public class BookController : ControllerBase
     }
 
     [HttpGet(Name = "Get All Books")]
-    public async Task<ActionResult<IEnumerable<BookReadDTO>>> GetAllBooks()
+    public async Task<ActionResult<IEnumerable<BookReadDto>>> GetAllBooks()
     {
         Console.WriteLine("--> Getting All Books...");
 
         var books = await _bookRepository.GetAllBooksAsync();
 
-        return Ok(_mapper.Map<IEnumerable<BookReadDTO>>(books));
+        return Ok(_mapper.Map<IEnumerable<BookReadDto>>(books));
     }
 
     [HttpPost(Name = "Insert a Book")]
-    public async Task<ActionResult<Book>> InsertBook(BookCreateDTO bookCreateDto)
+    public async Task<ActionResult<Book>> InsertBook(BookCreateDto bookCreateDto)
     {
         Console.WriteLine("--> Inserting a book...");
 
@@ -45,7 +44,7 @@ public class BookController : ControllerBase
     }
     
     [HttpPost("/api/Book/email",Name = "Insert a Book and Send Email")]
-    public async Task<ActionResult<Book>> InsertBookAndSendEmail(BookCreateDTO bookCreateDto, string email)
+    public async Task<ActionResult<Book>> InsertBookAndSendEmail(BookCreateDto bookCreateDto, string email)
     {
         Console.WriteLine("--> Inserting a book...");
 
@@ -70,6 +69,6 @@ public class BookController : ControllerBase
         if (book is null)
             return NotFound("The book was not found or doesn't exist.");
 
-        return Ok(_mapper.Map<BookReadDTO>(book));
+        return Ok(_mapper.Map<BookReadDto>(book));
     }
 }
