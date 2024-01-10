@@ -42,13 +42,14 @@ public class BookController : ControllerBase
 
         return CreatedAtAction(nameof(InsertBook), new { id = book.Id }, book);
     }
-    
-    [HttpPost("/api/Book/email",Name = "Insert a Book and Send Email")]
-    public async Task<ActionResult<Book>> InsertBookAndSendEmail(BookCreateDto bookCreateDto, string email)
+
+    [HttpPost("/api/Book/email", Name = "Insert a Book and Send Email")]
+    public async Task<ActionResult<Book>> InsertBookAndSendEmail(BookCreateDto bookCreateDto)
     {
         Console.WriteLine("--> Inserting a book...");
 
         var book = _mapper.Map<Book>(bookCreateDto);
+        string email = bookCreateDto.Email;
 
         await _bookRepository.InsertBookAsync(book);
 

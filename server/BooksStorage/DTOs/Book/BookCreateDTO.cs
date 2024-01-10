@@ -13,4 +13,6 @@ public class BookCreateDto
 
     [Required] public decimal Price { get; set; }
     [Required] public string Category { get; set; }
+
+    public string Email { get; set; }
 }
