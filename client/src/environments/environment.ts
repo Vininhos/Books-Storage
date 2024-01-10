@@ -1,4 +1,4 @@
 export const environment = {
-    production: true,
-    apiUrl: 'http://localhost:8079',
+  production: true,
+  apiUrl: 'http://booksstorage:8079',
 };
