@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: booksstorage
-        image: viniciusrw/booksstorage:1.0.0
+        image: viniciusrw/booksstorage:latest
         resources:
           limits:
             memory: "128Mi"
