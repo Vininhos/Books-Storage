@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  booksstorage-client
+  labels:
+    app:  booksstorage-client
+spec:
+  selector:
+    matchLabels:
+      app: booksstorage-client
+  template:
+    metadata:
+      labels:
+        app:  booksstorage-client
+    spec:
+      containers:
+      - name:  booksstorage-client
+        image: viniciusrw/booksstorageclient:1.0.7-k8s
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: '0.1'
+            memory: 100Mi
+          limits:
+            cpu: '0.2'
+            memory: 512Mi
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
