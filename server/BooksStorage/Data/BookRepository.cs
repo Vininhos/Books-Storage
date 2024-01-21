@@ -18,7 +18,7 @@ public class BookRepository : IBookRepository
         var mongoDatabase = mongoClient.GetDatabase(bookStorageDatabaseSettings.Value.DatabaseName);
         _httpEmailClient = httpEmailClient;
         _configuration = configuration;
-        
+
         _bookCollection = mongoDatabase.GetCollection<Book>(bookStorageDatabaseSettings.Value.BookCollectionName);
     }
 
@@ -33,7 +33,7 @@ public class BookRepository : IBookRepository
             return null;
 
         var result = await UpdateBookCounter(book);
-        
+
         return book;
     }
 

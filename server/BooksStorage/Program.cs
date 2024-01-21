@@ -26,6 +26,14 @@ builder.Services.AddCors(options =>
           .AllowAnyMethod());
 });
 
+builder.Services.AddLogging(options =>
+{
+  options.AddSimpleConsole(c =>
+  {
+    c.TimestampFormat = "[dd-MM-yyyy HH:mm:ss] ";
+  });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

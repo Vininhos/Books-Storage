@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name:  booksstorage-client
-        image: viniciusrw/booksstorageclient:1.0.7-k8s
+        image: viniciusrw/booksstorageclient:1.0.9-k8s
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -26,4 +26,12 @@ spec:
             memory: 512Mi
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: booksstorageclient-config
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+      volumes:
+        - name: booksstorageclient-config
+          configMap:
+            name: booksstorageclient-config
       restartPolicy: Always

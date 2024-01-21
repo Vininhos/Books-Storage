@@ -18,8 +18,10 @@ export class BookService {
   }
 
   insertBook(book: BookCreateDto) {
+    console.log("chamando API com o seguinte valor: " + book);
+    console.log("chamando API no seguinte endpoint: " + this.url + "/api/book");
     axios
-      .post(this.url + "/api/book/email", JSON.stringify(book), {
+      .post(this.url + "/api/book", JSON.stringify(book), {
         headers: {
           "Content-Type": "application/json",
         },

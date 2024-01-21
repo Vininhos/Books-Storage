@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mongodb-pvc
   labels:
-    app: mongodb
+    app: mongodb-pvc
 spec:
   resources:
     requests:

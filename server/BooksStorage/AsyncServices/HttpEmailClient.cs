@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using BooksStorage.Controllers;
 using BooksStorage.Models.Mail;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,30 +8,34 @@ namespace BooksStorage.AsyncServices;
 
 public class HttpEmailClient : IHttpEmailClient
 {
-    private readonly HttpClient _httpClient;
-    private readonly IConfiguration _configuration;
+  private readonly HttpClient _httpClient;
+  private readonly IConfiguration _configuration;
+  private readonly ILogger<BookController> _logger;
 
-    public HttpEmailClient(IConfiguration configuration)
+  public HttpEmailClient(IConfiguration configuration, ILogger<BookController> logger)
+  {
+    _httpClient = new HttpClient();
+    _configuration = configuration;
+    _logger = logger;
+  }
+
+  [HttpPost]
+  public async Task SendMailRequest(Email email)
+  {
+    try
     {
-        _httpClient = new HttpClient();
-        _configuration = configuration;
-    }
+      var httpContent = new StringContent(JsonSerializer.Serialize(email), Encoding.UTF8, "application/json");
+      HttpResponseMessage response = await _httpClient.PostAsync(_configuration["MailerService"], httpContent);
 
-    [HttpPost]
-    public async Task SendMailRequest(Email email)
+      if (response.IsSuccessStatusCode)
+        _logger.LogInformation("Sucessful sending Email from {From} to {To}.", email.From, email.To);
+
+      else
+        _logger.LogError("Failed to send Email from {From} to {To}.");
+    }
+    catch (Exception ex)
     {
-        try
-        {
-            var httpContent = new StringContent(JsonSerializer.Serialize(email), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync(_configuration["MailerService"], httpContent);
-
-            Console.WriteLine(response.IsSuccessStatusCode
-                ? "--> Sync POST to MailerService."
-                : "--> Sync POST to MailerService failed.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("--> Failed to send request to Mailer Service. Error: {0}", ex);
-        }
+      _logger.LogError("Failed to send request to Mailer Service. Error: {Ex}", ex);
     }
+  }
 }
