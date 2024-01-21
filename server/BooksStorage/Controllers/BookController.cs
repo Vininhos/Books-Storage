@@ -13,18 +13,20 @@ public class BookController : ControllerBase
     private readonly IBookRepository _bookRepository;
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
+    private readonly ILogger<BookController> _logger;
 
-    public BookController(IBookRepository bookRepository, AppDbContext context, IMapper mapper)
+    public BookController(IBookRepository bookRepository, AppDbContext context, IMapper mapper, ILogger<BookController> logger)
     {
         _bookRepository = bookRepository;
         _context = context;
         _mapper = mapper;
+        _logger = logger;
     }
 
     [HttpGet(Name = "Get All Books")]
     public async Task<ActionResult<IEnumerable<BookReadDto>>> GetAllBooks()
     {
-        Console.WriteLine("--> Getting All Books...");
+        _logger.LogInformation("Getting All Books");
 
         var books = await _bookRepository.GetAllBooksAsync();
 
@@ -34,7 +36,7 @@ public class BookController : ControllerBase
     [HttpPost(Name = "Insert a Book")]
     public async Task<ActionResult<Book>> InsertBook(BookCreateDto bookCreateDto)
     {
-        Console.WriteLine("--> Inserting a book...");
+        _logger.LogInformation("Inserting a book with name {Name}", bookCreateDto.Name);
 
         var book = _mapper.Map<Book>(bookCreateDto);
 
@@ -46,14 +48,14 @@ public class BookController : ControllerBase
     [HttpPost("/api/Book/email", Name = "Insert a Book and Send Email")]
     public async Task<ActionResult<Book>> InsertBookAndSendEmail(BookCreateDto bookCreateDto)
     {
-        Console.WriteLine("--> Inserting a book...");
+        _logger.LogInformation("Inserting a book with name {Name}", bookCreateDto.Name);
 
         var book = _mapper.Map<Book>(bookCreateDto);
         string email = bookCreateDto.Email;
 
         await _bookRepository.InsertBookAsync(book);
 
-        Console.WriteLine("Sending e-mail...");
+        _logger.LogInformation("Sending e-mail for {Email}", bookCreateDto.Email);
 
         await _bookRepository.SendEmailRequest(email, book);
 
@@ -63,12 +65,16 @@ public class BookController : ControllerBase
     [HttpGet("{id}", Name = "Get book by Id")]
     public async Task<ActionResult<Book>> GetBookByIdAsync(string id)
     {
-        Console.WriteLine("--> Getting book by id...");
+        _logger.LogInformation("Getting book by id {Id}", id);
 
         var book = await _bookRepository.GetBookByIdAsync(id);
 
         if (book is null)
+        {
+            _logger.LogInformation("The book with id {Id} was not found or doesn't exist.", id);
+
             return NotFound("The book was not found or doesn't exist.");
+        }
 
         return Ok(_mapper.Map<BookReadDto>(book));
     }
