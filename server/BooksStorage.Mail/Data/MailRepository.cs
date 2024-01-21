@@ -7,12 +7,14 @@ namespace BooksStorage.Mail.Data;
 public class MailRepository : IMailRepository
 {
     private readonly MailHogSettings _mailHogSettings;
+    private readonly ILogger<MailRepository> _logger;
 
-    public MailRepository(IOptions<MailHogSettings> mailHogSettings)
+    public MailRepository(IOptions<MailHogSettings> mailHogSettings, ILogger<MailRepository> logger)
     {
         _mailHogSettings = new();
         _mailHogSettings.Address = mailHogSettings.Value.Address;
         _mailHogSettings.Port = mailHogSettings.Value.Port;
+        _logger = logger;
     }
 
     public Task<bool> SendMail(Email email)
@@ -29,7 +31,7 @@ public class MailRepository : IMailRepository
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Failed to send email: {0}", ex);
+            _logger.LogError(ex, "Failed to send email for {Email}", email);
             return Task.FromResult(false);
         }
 
