@@ -20,14 +20,23 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(opt => { opt.UseInMemoryDatabase("InMem"); });
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-var elasticUrl = builder.Configuration.GetValue<string>("ElasticConfiguration:URL");
-Log.Logger = new LoggerConfiguration()
-    .Enrich.FromLogContext()
-    .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticUrl))
+builder.Host.UseSerilog((context, configuration) =>
     {
-        AutoRegisterTemplate = true
-    })
-    .CreateLogger();
+      configuration.Enrich.FromLogContext()
+      .Enrich.WithMachineName()
+      .WriteTo.Console()
+      .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(context.Configuration["ElasticConfiguration:Uri"]))
+      {
+        IndexFormat = context.Configuration["ElasticConfiguration:Index"],
+        AutoRegisterTemplate = true,
+        NumberOfShards = int.Parse(context.Configuration["ElasticConfiguration:NumberOfShards"]),
+        NumberOfReplicas = int.Parse(context.Configuration["ElasticConfiguration:NumberOfReplicas"]),
+        ModifyConnectionSettings = x => x.BasicAuthentication(context.Configuration["ElasticConfiguration:User"], context.Configuration["ElasticConfiguration:Password"])
+      })
+      .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
+      .ReadFrom.Configuration(context.Configuration);
+    });
+
 
 builder.Services.AddCors(options =>
 {
@@ -37,24 +46,13 @@ builder.Services.AddCors(options =>
           .AllowAnyMethod());
 });
 
-builder.Services.AddLogging(options =>
-{
-  options.AddSimpleConsole(c =>
-  {
-    c.TimestampFormat = "[dd-MM-yyyy HH:mm:ss] ";
-  });
-});
-
 var app = builder.Build();
-var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
   PrepDb.PrepPopulation(app);
 }
-
-loggerFactory.AddSerilog();
 
 app.UseSwagger();
 

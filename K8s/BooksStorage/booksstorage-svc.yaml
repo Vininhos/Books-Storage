@@ -5,9 +5,9 @@ metadata:
 spec:
   selector:
     app: booksstorage
-  type: NodePort
+  # type: NodePort
   ports:
   - port: 80
     protocol: TCP
     targetPort: apiport
-    nodePort: 30080
+      # nodePort: 30080

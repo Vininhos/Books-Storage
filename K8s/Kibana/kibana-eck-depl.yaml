@@ -8,6 +8,15 @@ spec:
   elasticsearchRef:
     name: elasticsearch
   http:
+    service:
+      spec:
+        type: NodePort
+        ports:
+          - name: http
+            nodePort: 30080
+            port: 5601
+            targetPort: 5601
+            protocol: TCP
     tls:
       selfSignedCertificate:
         disabled: true
