@@ -55,3 +55,10 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+
+  mongodb-feeder:
+    image: viniciusrw/mongodb-feeder:latest
+    restart: always
+    build:
+      context: server/mongodb-feeder
+      dockerfile: Dockerfile
