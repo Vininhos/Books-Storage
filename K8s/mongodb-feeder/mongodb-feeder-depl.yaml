@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodbfeeder
+spec:
+  selector:
+    matchLabels:
+      app: mongodbfeeder
+  template:
+    metadata:
+      labels:
+        app: mongodbfeeder
+    spec:
+      containers:
+      - name: mongodbfeeder
+        image: viniciusrw/mongodb-feeder:1.0.0
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "200m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        env:
+        - name: BOOKSSTORAGEAPIURL
+          value: http://booksstorage-svc/api/book
+        - name: ANOTHERBOOKAPIURL
+          value: https://stephen-king-api.onrender.com/api/book
