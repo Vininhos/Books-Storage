@@ -16,7 +16,7 @@ import (
 
 func GetNewBook(i int) (model.BooksStorageModel, error) {
 	logger.Logger.Info("Trying to get a new book from API.")
-	res, err := http.Get(fmt.Sprintf(os.Getenv("ANOTHERBOOKAPIURL")+"%d", i))
+	res, err := http.Get(fmt.Sprintf(os.Getenv("ANOTHERBOOKAPIURL")+"/%d", i))
 	if err != nil {
 		return model.BooksStorageModel{}, err
 	}
@@ -56,7 +56,7 @@ func SendPayload(book model.BooksStorageModel) error {
 	payload := bytes.NewBuffer(body)
 
 	logger.Logger.Info("Posting payload to the API.")
-	res, err := http.Post("BOOKSSTORAGEAPIURL", "application/json", payload)
+	res, err := http.Post(os.Getenv("BOOKSSTORAGEAPIURL"), "application/json", payload)
 	if err != nil {
 		return err
 	}

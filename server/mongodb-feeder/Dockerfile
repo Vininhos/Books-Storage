@@ -6,7 +6,7 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o mongodbfeeder cmd/main/main.go
 
-FROM scratch
+FROM alpine:latest
 
 COPY --from=builder /app/mongodbfeeder /mongodbfeeder
 

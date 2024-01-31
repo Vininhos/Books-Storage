@@ -62,3 +62,9 @@ services:
     build:
       context: server/mongodb-feeder
       dockerfile: Dockerfile
+    environment:
+      BOOKSSTORAGEAPIURL: http://booksstorage/api/book
+      ANOTHERBOOKAPIURL: https://stephen-king-api.onrender.com/api/book
+    deploy:
+      mode: replicated
+      replicas: 1
