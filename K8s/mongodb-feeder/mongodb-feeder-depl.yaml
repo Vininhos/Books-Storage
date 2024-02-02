@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: mongodbfeeder
-        image: viniciusrw/mongodb-feeder:1.0.0
+        image: viniciusrw/mongodb-feeder:1.0.1
         resources:
           requests:
             memory: "128Mi"
@@ -23,6 +23,6 @@ spec:
             cpu: "500m"
         env:
         - name: BOOKSSTORAGEAPIURL
-          value: http://booksstorage-svc/api/book
+          value: http://booksstorage-svc/api/book/email
         - name: ANOTHERBOOKAPIURL
           value: https://stephen-king-api.onrender.com/api/book
