@@ -22,6 +22,10 @@ func main() {
 			slog.Error("Error while sending a new book to the API:", slog.String("error", err.Error()))
 		}
 
-		time.Sleep(time.Hour * 4)
+		time.Sleep(time.Hour * 1)
+
+		if i == 63 {
+			i = 0
+		}
 	}
 }
