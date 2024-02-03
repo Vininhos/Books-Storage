@@ -23,6 +23,6 @@ func main() {
 
 		r := rand.Intn(60000)
 
-		time.Sleep(time.Minute * time.Duration(r))
+		time.Sleep(time.Millisecond * time.Duration(r))
 	}
 }
