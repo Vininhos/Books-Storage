@@ -1,4 +1,4 @@
-module mongodb-feeder
+module booksstorage-feeder
 
 go 1.21.6
 
