@@ -8,6 +8,7 @@ using BooksStorage.Models.Book;
 using BooksStorage.Profiles;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using Moq;
 
@@ -19,6 +20,7 @@ public class BookControllerTests
     private readonly BookProfile _bookProfile;
     private MapperConfiguration _configuration;
     private IMapper _mapper;
+    private Mock<ILogger<BookController>> _bookLogger;
 
     public BookControllerTests()
     {
@@ -26,6 +28,7 @@ public class BookControllerTests
         _bookProfile = new BookProfile();
         _configuration = new MapperConfiguration(config => config.AddProfile(_bookProfile));
         _mapper = _configuration.CreateMapper();
+        _bookLogger = new Mock<ILogger<BookController>>();
     }
 
     [Fact]
@@ -33,8 +36,8 @@ public class BookControllerTests
     {
         // Arrange
         _repositoryStub.Setup(repo => repo.GetBookByIdAsync(It.IsAny<string>())).ReturnsAsync((Book)null);
-
-        BookController controller = new BookController(_repositoryStub.Object, null, _mapper);
+        
+        BookController controller = new BookController(_repositoryStub.Object, null, _mapper, _bookLogger.Object);
         // Act
         ActionResult<Book> result = await controller.GetBookByIdAsync(ObjectId.GenerateNewId().ToString());
 
@@ -50,7 +53,7 @@ public class BookControllerTests
 
         _repositoryStub.Setup(repo => repo.GetBookByIdAsync(It.IsAny<string>())).ReturnsAsync(expectedBook);
 
-        var controller = new BookController(_repositoryStub.Object, null, _mapper);
+        var controller = new BookController(_repositoryStub.Object, null, _mapper, _bookLogger.Object);
         // Act
         var result = await controller.GetBookByIdAsync(ObjectId.GenerateNewId().ToString());
 
@@ -71,7 +74,7 @@ public class BookControllerTests
 
         _repositoryStub.Setup(repo => repo.GetAllBooksAsync()).ReturnsAsync(expectedBooks);
 
-        var controller = new BookController(_repositoryStub.Object, null, _mapper);
+        var controller = new BookController(_repositoryStub.Object, null, _mapper, _bookLogger.Object);
         // Act
         var result = await controller.GetAllBooks();
 
@@ -119,8 +122,7 @@ public class BookControllerTests
                 Price = 199
             }
         };
-
-
+        
         return books;
     }
 }
