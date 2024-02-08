@@ -56,15 +56,14 @@ services:
       - "1025:1025"
       - "8025:8025"
 
-  mongodb-feeder:
-    image: viniciusrw/mongodb-feeder:latest
+  booksstorage-feeder: 
+    image: viniciusrw/booksstorage-feeder:latest
     restart: always
     build:
-      context: server/mongodb-feeder
+      context: server/booksstorage-feeder
       dockerfile: Dockerfile
     environment:
       BOOKSSTORAGEAPIURL: http://booksstorage/api/book
-      ANOTHERBOOKAPIURL: https://stephen-king-api.onrender.com/api/book
     deploy:
       mode: replicated
       replicas: 1
