@@ -4,10 +4,8 @@ metadata:
   name: booksstorage-svc
 spec:
   selector:
-    app: booksstorage
-  # type: NodePort
+    app: booksstorage-depl
   ports:
   - port: 80
     protocol: TCP
     targetPort: apiport
-      # nodePort: 30080

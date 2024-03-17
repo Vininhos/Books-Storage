@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: booksstorage-mail
+  name: booksstorage-depl
 spec:
   selector:
     matchLabels:
-      app: booksstorage-mail
+      app: booksstorage-depl
   template:
     metadata:
       labels:
-        app: booksstorage-mail
+        app: booksstorage-depl
     spec:
       containers:
-      - name: booksstorage-mail
-        image: viniciusrw/booksstorage-mail:1.0.3-k8s
+      - name: booksstorage
+        image: viniciusrw/booksstorage:1.0.7-k8s
         resources:
           limits:
             memory: "350Mi"

@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: booksstoragefeeder
+  name: booksstoragefeeder-depl
 spec:
   selector:
     matchLabels:
-      app: booksstoragefeeder
+      app: booksstoragefeeder-depl
   template:
     metadata:
       labels:
-        app: booksstoragefeeder
+        app: booksstoragefeeder-depl
     spec:
       containers:
       - name: booksstoragefeeder
@@ -21,6 +21,3 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
-        env:
-        - name: BOOKSSTORAGEAPIURL
-          value: http://booksstorage-svc/api/book/email

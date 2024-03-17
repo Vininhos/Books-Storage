@@ -4,7 +4,7 @@ metadata:
   name: booksstorage-client-svc
 spec:
   selector:
-    app: booksstorage-client
+    app: booksstorage-client-depl
   type: NodePort
   ports:
   - name: booksstorage-client-svc

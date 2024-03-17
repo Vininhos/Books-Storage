@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  booksstorage-client
+  name:  booksstorage-client-depl
   labels:
-    app:  booksstorage-client
+    app:  booksstorage-client-depl
 spec:
   selector:
     matchLabels:
-      app: booksstorage-client
+      app: booksstorage-client-depl
   template:
     metadata:
       labels:
-        app:  booksstorage-client
+        app:  booksstorage-client-depl
     spec:
       containers:
       - name:  booksstorage-client
