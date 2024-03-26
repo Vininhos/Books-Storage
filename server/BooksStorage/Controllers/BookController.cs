@@ -38,7 +38,7 @@ public class BookController : ControllerBase
   [HttpPost(Name = "Insert a Book")]
   public async Task<ActionResult<Book>> InsertBook(BookCreateDto bookCreateDto)
   {
-    _logger.LogInformation("Inserting a book with name {Name}", bookCreateDto.Name);
+    _logger.LogInformation("Inserting a new book...");
 
     var book = _mapper.Map<Book>(bookCreateDto);
 
@@ -50,14 +50,14 @@ public class BookController : ControllerBase
   [HttpPost("/api/Book/email", Name = "Insert a Book and Send Email")]
   public async Task<ActionResult<Book>> InsertBookAndSendEmail(BookCreateDto bookCreateDto)
   {
-    _logger.LogInformation("Inserting a book with name {Name}", bookCreateDto.Name);
+    _logger.LogInformation("Inserting new book..");
 
     var book = _mapper.Map<Book>(bookCreateDto);
     string email = bookCreateDto.Email;
 
     await _bookRepository.InsertBookAsync(book);
 
-    _logger.LogInformation("Sending e-mail for {Email}", bookCreateDto.Email);
+    _logger.LogInformation("Sending e-mail to the user...");
 
     await _bookRepository.SendEmailRequest(email, book);
 
@@ -67,18 +67,18 @@ public class BookController : ControllerBase
   [HttpGet("{id}", Name = "Get book by Id")]
   public async Task<ActionResult<Book>> GetBookByIdAsync(string id)
   {
-    _logger.LogInformation("Getting book by id {Id}", id);
+    _logger.LogInformation("Getting book by id...");
 
     var book = await _bookRepository.GetBookByIdAsync(id);
 
     if (book is null)
     {
-      _logger.LogError("The book with id {Id} was not found or doesn't exist.", id);
+      _logger.LogError("The requested book was not found or doesn't exist.");
 
-      return NotFound("The book was not found or doesn't exist.");
+      return NotFound("The requested book was not found or doesn't exist.");
     }
 
-    _logger.LogInformation("Sucessful finding book {Book}. Returning result", book.Name);
+    _logger.LogInformation("The requested book was found. Returning...");
 
     return Ok(_mapper.Map<BookReadDto>(book));
   }
