@@ -78,7 +78,7 @@ public class BookController : ControllerBase
       return NotFound("The requested book was not found or doesn't exist.");
     }
 
-    _logger.LogInformation("Successful finding book {Book}. Returning result", book.Name);
+    _logger.LogInformation("The requested book was found. Returning...");
 
     return Ok(_mapper.Map<BookReadDto>(book));
   }
