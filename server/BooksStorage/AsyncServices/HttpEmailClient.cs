@@ -31,7 +31,7 @@ public class HttpEmailClient : IHttpEmailClient
         _logger.LogInformation("E-mail was sent successfully.");
 
       else
-        _logger.LogError("Email sent attempt failed.");
+        _logger.LogError("Email send attempt failed.");
     }
     catch (Exception ex)
     {
