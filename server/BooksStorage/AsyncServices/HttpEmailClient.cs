@@ -28,10 +28,10 @@ public class HttpEmailClient : IHttpEmailClient
       HttpResponseMessage response = await _httpClient.PostAsync(_configuration["MailerService"], httpContent);
 
       if (response.IsSuccessStatusCode)
-        _logger.LogInformation("Sucessful sending Email from {From} to {To}.", email.From, email.To);
+        _logger.LogInformation("E-mail was sent successfully.");
 
       else
-        _logger.LogError("Failed to send Email from {From} to {To}.");
+        _logger.LogError("Email sent attempt failed.");
     }
     catch (Exception ex)
     {

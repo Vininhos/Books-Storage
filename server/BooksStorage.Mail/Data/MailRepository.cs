@@ -21,7 +21,7 @@ public class MailRepository : IMailRepository
   {
     try
     {
-      _logger.LogInformation("Starting email send process and Email Message creation.");
+      _logger.LogInformation("Starting email send process and Email Message build.");
 
       MailMessage mailMessage = new MailMessage(email.From, email.To);
       mailMessage.Subject = email.Subject;
@@ -31,7 +31,7 @@ public class MailRepository : IMailRepository
 
       SmtpClient smtpClient = new SmtpClient(_mailHogSettings.Address, _mailHogSettings.Port);
 
-      _logger.LogInformation("Starting email send process to {To} from {From}.", email.To, email.From);
+      _logger.LogInformation("Starting email send process.");
 
       smtpClient.Send(mailMessage);
     }
