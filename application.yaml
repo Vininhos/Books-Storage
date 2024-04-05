@@ -8,9 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Vininhos/Books-Storage.git
     targetRevision: HEAD
-    path: K8s
-    directory:
-      recurse: true
+    path: K8s/BooksStorage/overlays/development
   destination:
     server: https://kubernetes.default.svc
     namespace: default
