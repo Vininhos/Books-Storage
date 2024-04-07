@@ -1,0 +1,4 @@
+- op: add
+  path: /metadata/annotations
+  value:
+    kubernetes.io/ingress.class: gce

@@ -3,3 +3,8 @@ kind: Kustomization
 
 resources:
   - "../../base"
+    
+patches:
+  - path: "annotations.yaml"
+    target:
+      kind: Ingress
