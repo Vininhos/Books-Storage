@@ -7,8 +7,7 @@ spec:
     app: booksstorage-client-depl
   type: NodePort
   ports:
-  - name: booksstorage-client-svc
-    protocol: TCP
-    port: 80
-    targetPort: 80
-    nodePort: 30080
+    - name: booksstorage-client-svc
+      protocol: TCP
+      port: 80
+      targetPort: 80
