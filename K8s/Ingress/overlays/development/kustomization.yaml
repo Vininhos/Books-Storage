@@ -8,3 +8,6 @@ patches:
   - path: "annotations.yaml"
     target:
       kind: Ingress
+  - path: "ingressclassname.yaml"
+    target:
+      kind: Ingress
