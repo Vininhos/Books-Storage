@@ -6,7 +6,8 @@ metadata:
     kubernetes.io/ingress.class: gce
 spec:
   rules:
-    - http:
+    - host: booksstorage.com
+      http:
         paths:
           - path: /
             pathType: Prefix
