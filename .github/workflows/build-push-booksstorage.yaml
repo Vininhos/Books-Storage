@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - master
+      - develop
+name: Build BooksStorage
+run-name: ${{ github.actor }} triggered BooksStorage API Build ${{ github.job }}
+
+jobs:
+  build-push-booksstorage-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+  
+      - name: Build Artifact
+        uses: docker/build-push-action@v5.3.0
+        with:
+          file: server/Booksstorage/Dockerfile
+          push: true
+          tags: viniciusrw/booksstorage:${{ github.run_number }}
