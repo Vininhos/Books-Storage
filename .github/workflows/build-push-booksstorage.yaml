@@ -34,7 +34,7 @@ jobs:
       - name: Build and Push Image
         uses: docker/build-push-action@v5.3.0
         with:
-          context: server/Booksstorage
-          file: server/Booksstorage/Dockerfile
+          context: server/BooksStorage
+          file: server/BooksStorage/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
