@@ -2,9 +2,6 @@ name: Build BooksStorage Image and Push
 
 on:
   push:
-    branches:
-      - master
-      - develop
     tags:
       - "v*"
 
