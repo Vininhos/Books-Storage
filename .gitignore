@@ -3,3 +3,4 @@ mongo/
 .vscode/
 client/node_modules/
 client/.angular/
+terraform/

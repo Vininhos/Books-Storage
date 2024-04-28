@@ -27,19 +27,19 @@ spec:
       path: K8s/BooksStorage-Mail/overlays/production
 
     # Elasticsearch
-    - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
-      path: K8s/Elasticsearch/overlays/production
+    # - repoURL: https://github.com/Vininhos/Books-Storage.git
+    #  targetRevision: HEAD
+    # path: K8s/Elasticsearch/overlays/production
 
     # Ingress
-    - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
-      path: K8s/Ingress/overlays/production
+    # - repoURL: https://github.com/Vininhos/Books-Storage.git
+    #  targetRevision: HEAD
+    #  path: K8s/Ingress/overlays/production
 
     # Kibana
-    - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
-      path: K8s/Kibana/overlays/production
+    # - repoURL: https://github.com/Vininhos/Books-Storage.git
+    #  targetRevision: HEAD
+    #  path: K8s/Kibana/overlays/production
 
     # Mailhog
     - repoURL: https://github.com/Vininhos/Books-Storage.git
