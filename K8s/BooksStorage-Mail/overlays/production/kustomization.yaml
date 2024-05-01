@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   - "../../base"
   - "hpa.yaml"
+
+patches:
+  - target:
+      kind: Deployment
+    path: env.yaml
+
