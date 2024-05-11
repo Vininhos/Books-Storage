@@ -11,3 +11,6 @@ patches:
   - path: "ingressclassname.yaml"
     target:
       kind: Ingress
+  - path: "host.yaml"
+    target:
+      kind: Ingress

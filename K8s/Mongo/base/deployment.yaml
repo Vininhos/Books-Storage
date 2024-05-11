@@ -19,8 +19,8 @@ spec:
             memory: "128Mi"
             cpu: "100m"
           limits:
-            memory: "500Mi"
-            cpu: "300m"
+            memory: "300Mi"
+            cpu: "200m"
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: "mongoadmin"
