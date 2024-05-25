@@ -6,50 +6,21 @@ metadata:
 spec:
   project: default
   sources:
-    # Books-Storage
     - repoURL: https://github.com/Vininhos/Books-Storage.git
       targetRevision: HEAD
-      path: K8s/BooksStorage/overlays/production
 
-    # BooksStorage-Client
-    - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
-      path: K8s/BooksStorage-Client/overlays/production
+    # Books-Storage Application.
+    - path: K8s/BooksStorage/overlays/production
+    - path: K8s/BooksStorage-Client/overlays/production
+    - path: K8s/BooksStorage-Feeder/overlays/production
+    - path: K8s/BooksStorage-Mail/overlays/production
 
-    # BooksStorage-Feeder
-    - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
-      path: K8s/BooksStorage-Feeder/overlays/production
-
-    # BooksStorage-Mail
-    - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
-      path: K8s/BooksStorage-Mail/overlays/production
-
-    # Elasticsearch
-    # - repoURL: https://github.com/Vininhos/Books-Storage.git
-    #  targetRevision: HEAD
-    # path: K8s/Elasticsearch/overlays/production
-
-    # Ingress
-    # - repoURL: https://github.com/Vininhos/Books-Storage.git
-    #  targetRevision: HEAD
-    #  path: K8s/Ingress/overlays/production
-
-    # Kibana
-    # - repoURL: https://github.com/Vininhos/Books-Storage.git
-    #  targetRevision: HEAD
-    #  path: K8s/Kibana/overlays/production
-
-    # Mailhog
-    - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
-      path: K8s/MailHog/overlays/production
-
-    # Mongo
-    - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
-      path: K8s/Mongo/overlays/production
+    # Infrastructure, observability and database.
+    - path: K8s/Elasticsearch/overlays/production
+    - path: K8s/Ingress/overlays/production
+    - path: K8s/Kibana/overlays/production
+    - path: K8s/MailHog/overlays/production
+    - path: K8s/Mongo/overlays/production
 
   destination:
     server: https://kubernetes.default.svc
