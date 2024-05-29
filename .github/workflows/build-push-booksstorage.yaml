@@ -2,8 +2,13 @@ name: Build BooksStorage Image and Push
 
 on:
   push:
+    branches:
+      - "master"
+      - "develop"
     tags:
-      - "v*"
+      - "v*.*.*"
+    paths:
+      - "server/BooksStorage"
 
 jobs:
   build-push-booksstorage-image:
