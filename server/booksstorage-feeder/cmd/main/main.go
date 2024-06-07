@@ -12,9 +12,11 @@ import (
 	"time"
 )
 
-var book model.BooksStorageModel
-var err error
-var r int = 60000
+var (
+	book model.BooksStorageModel
+	err  error
+	r    int = 60000
+)
 
 func init() {
 	rarg := os.Getenv("MAXMILLISEC")
@@ -32,7 +34,10 @@ func main() {
 
 		err = api.SendPayload(book)
 		if err != nil {
-			logger.Logger.Error("Error while sending a new book to the API:", slog.String("error", err.Error()))
+			logger.Logger.Error(
+				"Error while sending a new book to the API:",
+				slog.String("error", err.Error()),
+			)
 		}
 
 		r := rand.Intn(r)
