@@ -5,7 +5,8 @@ metadata:
   annotations:
 spec:
   rules:
-    - http:
+    - host:
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -14,3 +15,7 @@ spec:
                 name: booksstorage-client-svc
                 port:
                   number: 80
+  tls:
+    - hosts: 
+        - booksstorage.com
+      secretName: booksstorage-local-cert-tls

@@ -2,3 +2,4 @@
   path: /metadata/annotations
   value:
       nginx.ingress.kubernetes.io/use-regex: 'true'
+      cert-manager.io/cluster-issuer: selfsigned-issuer
