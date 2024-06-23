@@ -8,10 +8,6 @@ on:
 #    paths:
 #      - "server/BooksStorage/**"
 
-concurrency:
-  group: ${{ GITHUB.WORKFLOW }}-${{ GITHUB.REF }}
-  cancel-in-progress: true
-
 jobs:
   code-quality:
     uses: ./.github/workflows/codeql.yaml
@@ -21,6 +17,7 @@ jobs:
       contents: read
 
   build-push-booksstorage-image:
+    needs: code-quality
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
