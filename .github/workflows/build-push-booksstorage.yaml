@@ -47,4 +47,3 @@ jobs:
           file: server/BooksStorage/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/booksstorage:latest,${{ secrets.DOCKERHUB_USERNAME }}/booksstorage:${{ steps.latesttag.outputs.tag }}-${{ github.run_number }}
-  de
