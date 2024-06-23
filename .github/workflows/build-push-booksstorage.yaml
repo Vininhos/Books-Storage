@@ -14,6 +14,7 @@ jobs:
     permissions:
       actions: read
       security-events: write
+      contents: read
 
   build-push-booksstorage-image:
     runs-on: ubuntu-latest
