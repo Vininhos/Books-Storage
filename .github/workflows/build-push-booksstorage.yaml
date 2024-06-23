@@ -11,6 +11,9 @@ on:
 jobs:
   code-quality:
     uses: ./.github/workflows/codeql.yaml
+    permissions:
+      actions: read
+      security-events: write
 
   build-push-booksstorage-image:
     runs-on: ubuntu-latest
