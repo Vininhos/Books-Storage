@@ -10,9 +10,7 @@ on:
 
 jobs:
   code-quality:
-    uses: .github/workflows/codeql.yaml
-    with:
-      ref: ${{ GITHUB_REF }}
+    uses: ./.github/workflows/codeql.yaml
 
   build-push-booksstorage-image:
     runs-on: ubuntu-latest
