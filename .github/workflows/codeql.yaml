@@ -27,6 +27,7 @@ jobs:
     permissions:
       # required for all workflows
       security-events: write
+
       # only required for workflows in private repositories
       actions: read
       contents: read
@@ -40,8 +41,9 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: csharp
+          build-mode: autobuild
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          language: csharp
+          category: "/language:csharp"
