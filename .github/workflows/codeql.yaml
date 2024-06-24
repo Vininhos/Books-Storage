@@ -16,7 +16,7 @@ on:
     inputs:
       path-dir:
         description: "Path to scan."
-        required: false
+        required: true
         type: string
 
 jobs:
