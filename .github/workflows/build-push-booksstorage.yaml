@@ -12,9 +12,7 @@ jobs:
   code-quality:
     uses: ./.github/workflows/codeql.yaml
     permissions:
-      actions: read
       security-events: write
-      contents: read
 
   build-push-booksstorage-image:
     needs: code-quality
