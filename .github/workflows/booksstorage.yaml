@@ -1,0 +1,23 @@
+name: Build BooksStorage Image and Push
+
+on:
+  push:
+    branches:
+      - "master"
+      - "develop"
+    paths:
+      - "server/BooksStorage/**"
+
+jobs:
+  code-quality:
+    uses: ./.github/workflows/codeql.yaml
+    permissions:
+      security-events: write
+
+  build-push-image:
+    uses: ./.github/workflows/build-push-image.yaml
+    needs: code-quality
+    with:
+      application: "BooksStorage"
+      image: "booksstorage"
+      projectDirectory: "server/BooksStorage"
