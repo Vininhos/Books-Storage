@@ -1,4 +1,3 @@
-version: '3'
 services:
   booksstorage:
     image: viniciusrw/booksstorage:latest
@@ -8,7 +7,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8079:80"
-    deploy: 
+    deploy:
       mode: replicated
       replicas: 1
 
@@ -17,7 +16,7 @@ services:
     restart: always
     ports:
       - "27017:27017"
-    deploy: 
+    deploy:
       mode: replicated
       replicas: 1
     environment:
@@ -25,11 +24,11 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=secret
     volumes:
       - ./mongo/data:/data/db
-  
+
   booksstorageclient:
     image: viniciusrw/booksstorageclient:latest
     restart: always
-    build: 
+    build:
       context: client/
       dockerfile: Dockerfile
     ports:
@@ -48,7 +47,7 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-  
+
   mailhog:
     image: mailhog/mailhog:latest
     restart: always
@@ -56,7 +55,7 @@ services:
       - "1025:1025"
       - "8025:8025"
 
-  booksstorage-feeder: 
+  booksstorage-feeder:
     image: viniciusrw/booksstorage-feeder:latest
     restart: always
     build:
