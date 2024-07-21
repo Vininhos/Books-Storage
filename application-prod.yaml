@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
+      targetRevision: master
 
     # Books-Storage Application.
     - path: K8s/BooksStorage/overlays/production

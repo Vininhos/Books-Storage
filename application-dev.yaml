@@ -8,40 +8,40 @@ spec:
   sources:
     # Books-Storage Application.
     - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
+      targetRevision: master
       path: K8s/BooksStorage/overlays/development
 
     - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
+      targetRevision: master
       path: K8s/BooksStorage-Client/overlays/development
 
     - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
+      targetRevision: master
       path: K8s/BooksStorage-Feeder/overlays/development
 
     - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
+      targetRevision: master
       path: K8s/BooksStorage-Mail/overlays/development
 
     # Infrastructure, observability and database.
     #    - repoURL: https://github.com/Vininhos/Books-Storage.git
-      #  targetRevision: HEAD
-      #path: K8s/Elasticsearch/overlays/development
+    #  targetRevision: master
+    #path: K8s/Elasticsearch/overlays/development
 
     - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
+      targetRevision: master
       path: K8s/Ingress/overlays/development
 
     #- repoURL: https://github.com/Vininhos/Books-Storage.git
-      #  targetRevision: HEAD
-      #  path: K8s/Kibana/overlays/development
+    #  targetRevision: master
+    #  path: K8s/Kibana/overlays/development
 
     - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
+      targetRevision: master
       path: K8s/MailHog/overlays/development
 
     - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: HEAD
+      targetRevision: master
       path: K8s/Mongo/overlays/development
 
   destination:

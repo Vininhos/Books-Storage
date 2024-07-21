@@ -62,7 +62,9 @@ services:
       context: server/booksstorage-feeder
       dockerfile: Dockerfile
     environment:
-      BOOKSSTORAGEAPIURL: http://booksstorage/api/book
+      BOOKSSTORAGEAPIURL: http://booksstorage:8079/api/book
     deploy:
       mode: replicated
       replicas: 1
+    depends_on:
+      - booksstorage
