@@ -1,6 +1,6 @@
 services:
   booksstorage:
-    image: viniciusrw/booksstorage:1.0.7-k8s
+    image: viniciusrw/booksstorage:latest
     restart: always
     build:
       context: server/BooksStorage
