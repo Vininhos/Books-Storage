@@ -1,13 +1,9 @@
-name: "Build and Push Image"
+name: "Build and Publich Docker Image"
 
 on:
   workflow_call:
     inputs:
-      application:
-        description: "Application name"
-        required: true
-        type: string
-      image:
+      imageName:
         description: "Image name"
         required: true
         type: string
@@ -43,4 +39,4 @@ jobs:
           context: ${{ inputs.projectDirectory }}
           file: ${{ inputs.projectDirectory }}/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.image }}:latest,${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.image }:${{ steps.latesttag.outputs.tag }}-${{ github.run_number }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.imageName }}:latest,${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.imageName }:${{ steps.latesttag.outputs.tag }}-${{ github.run_number }}

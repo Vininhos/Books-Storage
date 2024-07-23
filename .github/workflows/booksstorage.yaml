@@ -8,16 +8,24 @@ on:
     paths:
       - "server/BooksStorage/**"
 
+env:
+  applicationName: "booksstorage"
+
 jobs:
   code-quality:
-    uses: ./.github/workflows/codeql.yaml
+    uses: ./.github/workflows/code-quality.yaml
     permissions:
       security-events: write
 
-  build-push-image:
+  build-publish-image:
     uses: ./.github/workflows/build-push-image.yaml
     needs: code-quality
     with:
-      application: "BooksStorage"
-      image: "booksstorage"
-      projectDirectory: "server/BooksStorage"
+      imageName: $applicationName
+      projectDirectory: "server/booksstorage"
+
+  image-quality:
+    uses: ./github/workflows/image-quality.yaml
+    needs: build-publish-image
+    with:
+      imageName: $applicationName
