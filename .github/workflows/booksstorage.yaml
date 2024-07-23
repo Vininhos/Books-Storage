@@ -18,7 +18,7 @@ jobs:
       security-events: write
 
   build-publish-image:
-    uses: ./.github/workflows/build-push-image.yaml
+    uses: ./.github/workflows/build-publish-image.yaml
     needs: code-quality
     with:
       imageName: $applicationName
