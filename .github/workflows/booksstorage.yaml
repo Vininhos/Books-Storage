@@ -8,9 +8,6 @@ on:
     paths:
       - "server/booksstorage/**"
 
-env:
-  applicationName: "booksstorage"
-
 jobs:
   code-quality:
     uses: ./.github/workflows/code-quality.yaml
@@ -21,11 +18,11 @@ jobs:
     uses: ./.github/workflows/build-publish-image.yaml
     needs: code-quality
     with:
-      imageName: ${{ env.applicationName }}
-      projectDirectory: "server/${{ env.applicationName }}"
+      imageName: "booksstorage"
+      projectDirectory: "server/booksstorage"
 
   image-quality:
     uses: ./.github/workflows/image-quality.yaml
     needs: build-publish-image
     with:
-      imageName: ${{ env.applicationName }}
+      imageName: "booksstorage"
