@@ -29,11 +29,11 @@ func main() {
 		logger.Error("Error while connecting to DB:", slog.String("Error", err.Error()))
 	}
 
-	slog.Info("Connected to DB!")
+	slog.Info("Connected to DB")
 
 	if err := db.DisconnectFromDB(ctx); err != nil {
 		logger.Error("Error while disconnecting from DB:", slog.String("Error", err.Error()))
 	}
 
-	slog.Info("Disconnected from DB!")
+	slog.Info("Disconnected from DB")
 }

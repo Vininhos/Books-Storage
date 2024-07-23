@@ -21,11 +21,11 @@ jobs:
     uses: ./.github/workflows/build-publish-image.yaml
     needs: code-quality
     with:
-      imageName: ${{ applicationName }}
-      projectDirectory: "server/booksstorage"
+      imageName: ${{ env.applicationName }}
+      projectDirectory: "server/${{ env.applicationName }}"
 
   image-quality:
     uses: ./.github/workflows/image-quality.yaml
     needs: build-publish-image
     with:
-      imageName: ${{ applicationName }}
+      imageName: ${{ env.applicationName }}
