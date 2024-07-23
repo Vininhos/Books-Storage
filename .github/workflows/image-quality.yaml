@@ -1,0 +1,23 @@
+name: "Build and Publich Docker Image"
+
+on:
+  workflow_call:
+    inputs:
+      imageName:
+        description: "Image name"
+        required: true
+        type: string
+
+jobs:
+  scan-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: "docker.io/my-organization/{{ inputs.imageName }}:latest"
+          format: "table"
+          exit-code: "1"
+          ignore-unfixed: true
+          vuln-type: "os,library"
+          severity: "CRITICAL,HIGH"

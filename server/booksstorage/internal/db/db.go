@@ -18,7 +18,7 @@ var (
 	err    error
 )
 
-func ConnectToDB() error {
+func ConnectToDB(ctx context.Context) error {
 	if client != nil {
 		return errors.New("already connected to db")
 	}
@@ -38,7 +38,7 @@ func ConnectToDB() error {
 		return errors.New("URI environment could not be loaded. Please check the environment keys on your .env or the K8s env manifests")
 	}
 
-	client, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(uri).SetAuth(credential))
+	client, err = mongo.Connect(ctx, options.Client().ApplyURI(uri).SetAuth(credential))
 
 	if err != nil {
 		return err
@@ -49,25 +49,23 @@ func ConnectToDB() error {
 	return nil
 }
 
-func DisconnectFromDB() error {
+func DisconnectFromDB(ctx context.Context) error {
 	if client == nil {
 		return errors.New("the application is not connected to db")
 	}
-	if err := client.Disconnect(context.TODO()); err != nil {
+	if err := client.Disconnect(ctx); err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Disconnected from db")
 
 	return nil
 }
 
-func GetAllBooks() ([]models.Book, error) {
+func GetAllBooks(ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
-	cur, err := coll.Find(context.TODO(), bson.D{})
+	cur, err := coll.Find(ctx, bson.D{})
 
-	if err = cur.All(context.TODO(), &results); err != nil {
+	if err = cur.All(ctx, &results); err != nil {
 		panic(err)
 	}
 
@@ -85,12 +83,12 @@ func GetAllBooks() ([]models.Book, error) {
 	return results, nil
 }
 
-func GetBooksByName(name string) ([]models.Book, error) {
+func GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
-	cur, err := coll.Find(context.TODO(), bson.D{{"Name", name}})
+	cur, err := coll.Find(ctx, bson.D{{"Name", name}})
 
-	if err = cur.All(context.TODO(), &results); err != nil {
+	if err = cur.All(ctx, &results); err != nil {
 		panic(err)
 	}
 
@@ -106,8 +104,8 @@ func GetBooksByName(name string) ([]models.Book, error) {
 	return results, nil
 }
 
-func InsertOneBook(book models.Book) error {
-	result, err := coll.InsertOne(context.TODO(), book)
+func InsertOneBook(book models.Book, ctx context.Context) error {
+	result, err := coll.InsertOne(ctx, book)
 
 	if err != nil {
 		fmt.Printf("An error occuried while trying to insert one document. Err: %s\n", err.Error())

@@ -6,18 +6,26 @@ on:
       - "master"
       - "develop"
     paths:
-      - "server/BooksStorage/**"
+      - "server/booksstorage/**"
+
+env:
+  applicationName: "booksstorage"
 
 jobs:
   code-quality:
-    uses: ./.github/workflows/codeql.yaml
+    uses: ./.github/workflows/code-quality.yaml
     permissions:
       security-events: write
 
-  build-push-image:
-    uses: ./.github/workflows/build-push-image.yaml
+  build-publish-image:
+    uses: ./.github/workflows/build-publish-image.yaml
     needs: code-quality
     with:
-      application: "BooksStorage"
-      image: "booksstorage"
-      projectDirectory: "server/BooksStorage"
+      imageName: ${{ env.applicationName }}
+      projectDirectory: "server/${{ env.applicationName }}"
+
+  image-quality:
+    uses: ./.github/workflows/image-quality.yaml
+    needs: build-publish-image
+    with:
+      imageName: ${{ env.applicationName }}
