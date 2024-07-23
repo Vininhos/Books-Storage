@@ -6,7 +6,7 @@ on:
       - "master"
       - "develop"
     paths:
-      - "server/BooksStorage/**"
+      - "server/booksstorage/**"
 
 env:
   applicationName: "booksstorage"

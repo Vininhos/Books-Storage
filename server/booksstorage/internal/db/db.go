@@ -57,8 +57,6 @@ func DisconnectFromDB(ctx context.Context) error {
 		panic(err)
 	}
 
-	fmt.Println("Disconnected from db")
-
 	return nil
 }
 
