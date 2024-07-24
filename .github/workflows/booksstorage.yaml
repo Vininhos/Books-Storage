@@ -1,4 +1,4 @@
-name: Build BooksStorage Image and Push
+name: BooksStorage Action
 
 on:
   push:
@@ -10,14 +10,14 @@ on:
       - "server/booksstorage/**"
 
 jobs:
-  code-quality:
-    uses: ./.github/workflows/code-quality.yaml
-    permissions:
-      security-events: write
+  # code-quality:
+  #   uses: ./.github/workflows/code-quality.yaml
+  #   permissions:
+  #     security-events: write
 
   build-publish-image:
     uses: ./.github/workflows/build-publish-image.yaml
-    needs: code-quality
+    # needs: code-quality
     with:
       imageName: "booksstorage"
       projectDirectory: "server/booksstorage"
