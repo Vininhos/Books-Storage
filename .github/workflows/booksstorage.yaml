@@ -5,6 +5,7 @@ on:
     branches:
       - "master"
       - "develop"
+      - "actions-tests"
     paths:
       - "server/booksstorage/**"
 
