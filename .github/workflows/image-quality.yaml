@@ -1,4 +1,4 @@
-name: "Build and Publich Docker Image"
+name: "Image Quality"
 
 on:
   workflow_call:
