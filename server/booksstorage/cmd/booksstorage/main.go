@@ -35,5 +35,5 @@ func main() {
 		logger.Error("Error while disconnecting from DB:", slog.String("Error", err.Error()))
 	}
 
-	slog.Info("Disconnected from DB")
+	slog.Info("Disconnected from DB!")
 }

@@ -15,16 +15,16 @@ jobs:
   #   permissions:
   #     security-events: write
 
-  # build-publish-image:
-  #   uses: ./.github/workflows/build-publish-image.yaml
-  #   secrets: inherit
-  #   needs: code-quality
-  #   with:
-  #     imageName: "booksstorage"
-  #     projectDirectory: "server/booksstorage"
+  build-publish-image:
+    uses: ./.github/workflows/build-publish-image.yaml
+    secrets: inherit
+    needs: code-quality
+    with:
+      imageName: "booksstorage"
+      projectDirectory: "server/booksstorage"
 
   image-quality:
     uses: ./.github/workflows/image-quality.yaml
-    #needs: build-publish-image
+    needs: build-publish-image
     with:
       imageName: "booksstorage"
