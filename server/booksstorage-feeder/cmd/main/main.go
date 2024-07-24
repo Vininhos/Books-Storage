@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	book model.BooksStorageModel
+	book model.Book
 	err  error
 	r    int = 60000
 )

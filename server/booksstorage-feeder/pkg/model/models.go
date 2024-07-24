@@ -1,6 +1,6 @@
 package model
 
-type BooksStorageModel struct {
+type Book struct {
 	Name            string
 	Author          string
 	PublicationYear int
