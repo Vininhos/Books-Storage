@@ -25,6 +25,6 @@ jobs:
 
   image-quality:
     uses: ./.github/workflows/image-quality.yaml
-    needs: build-publish-image
+    #needs: build-publish-image
     with:
       imageName: "booksstorage"
