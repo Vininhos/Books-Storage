@@ -1,4 +1,4 @@
-name: "Image Quality"
+name: Image Quality
 
 on:
   workflow_call:
@@ -15,7 +15,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.20.0
         with:
-          image-ref: "docker.io/my-organization/{{ inputs.imageName }}:latest"
+          image-ref: "docker.io/viniciusrw/${{ inputs.imageName }}:latest"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
