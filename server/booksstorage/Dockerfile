@@ -6,7 +6,7 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o booksstorage cmd/booksstorage/main.go
 
-FROM scratch
+FROM gcr.io/distroless/base-debian12
 
 COPY --from=builder /app/booksstorage /booksstorage
 
