@@ -1,11 +1,10 @@
-name: Build BooksStorage Image and Push
+name: BooksStorage Action
 
 on:
   push:
     branches:
       - "master"
       - "develop"
-      - "actions-tests"
     paths:
       - "server/booksstorage/**"
 
@@ -17,6 +16,7 @@ jobs:
 
   build-publish-image:
     uses: ./.github/workflows/build-publish-image.yaml
+    secrets: inherit
     needs: code-quality
     with:
       imageName: "booksstorage"
