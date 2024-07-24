@@ -1,0 +1,29 @@
+name: BooksStorage-Feeder Action
+
+on:
+  push:
+    branches:
+      - "master"
+      - "develop"
+    paths:
+      - "server/booksstorage-feeder/**"
+
+jobs:
+  code-quality:
+    uses: ./.github/workflows/code-quality.yaml
+    permissions:
+      security-events: write
+
+  build-publish-image:
+    uses: ./.github/workflows/build-publish-image.yaml
+    secrets: inherit
+    needs: code-quality
+    with:
+      imageName: "booksstorage-feeder"
+      projectDirectory: "server/booksstorage-feeder"
+
+  image-quality:
+    uses: ./.github/workflows/image-quality.yaml
+    needs: build-publish-image
+    with:
+      imageName: "booksstorage-feeder"
