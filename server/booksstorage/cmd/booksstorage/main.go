@@ -2,13 +2,15 @@ package main
 
 import (
 	"booksstorage/internal/db"
+	"booksstorage/internal/logger"
+	"booksstorage/internal/routes"
 	"context"
+	"log"
 	"log/slog"
-	"os"
+	"net/http"
 	"time"
 
 	"github.com/joho/godotenv"
-	"github.com/lmittmann/tint"
 )
 
 const defaultTimeout = time.Minute
@@ -17,9 +19,7 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	logger := slog.New(tint.NewHandler(os.Stdout, nil))
-
-	slog.SetDefault(logger)
+	logger := logger.GetLogger()
 
 	if err := godotenv.Load(); err != nil {
 		logger.Info("No .env file found")
@@ -28,12 +28,13 @@ func main() {
 	if err := db.ConnectToDB(ctx); err != nil {
 		logger.Error("Error while connecting to DB:", slog.String("Error", err.Error()))
 	}
+	defer db.DisconnectFromDB(ctx)
 
 	slog.Info("Connected to DB!")
 
-	if err := db.DisconnectFromDB(ctx); err != nil {
-		logger.Error("Error while disconnecting from DB:", slog.String("Error", err.Error()))
-	}
+	r := routes.Routes(logger)
+	slog.Info("Listening to port 8080...")
+	log.Fatal(http.ListenAndServe(":8080", r))
 
 	slog.Info("Disconnected from DB!")
 }
