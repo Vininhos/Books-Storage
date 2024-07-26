@@ -15,7 +15,6 @@ import (
 var (
 	client *mongo.Client
 	coll   *mongo.Collection
-	err    error
 )
 
 func ConnectToDB(ctx context.Context) error {
@@ -38,7 +37,7 @@ func ConnectToDB(ctx context.Context) error {
 		return errors.New("URI environment could not be loaded. Please check the environment keys on your .env or the K8s env manifests")
 	}
 
-	client, err = mongo.Connect(ctx, options.Client().ApplyURI(uri).SetAuth(credential))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri).SetAuth(credential))
 
 	if err != nil {
 		return err
@@ -49,15 +48,10 @@ func ConnectToDB(ctx context.Context) error {
 	return nil
 }
 
-func DisconnectFromDB(ctx context.Context) error {
-	if client == nil {
-		return errors.New("the application is not connected to db")
-	}
+func DisconnectFromDB(ctx context.Context) {
 	if err := client.Disconnect(ctx); err != nil {
 		panic(err)
 	}
-
-	return nil
 }
 
 func GetAllBooks(ctx context.Context) ([]models.Book, error) {
@@ -83,7 +77,7 @@ func GetAllBooks(ctx context.Context) ([]models.Book, error) {
 	return results, nil
 }
 
-func GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
+func GetBooksByName(name string, coll *mongo.Collection, ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
 	cur, err := coll.Find(ctx, bson.D{{"Name", name}})
@@ -104,7 +98,7 @@ func GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
 	return results, nil
 }
 
-func InsertOneBook(book models.Book, ctx context.Context) error {
+func InsertOneBook(book models.Book, coll *mongo.Collection, ctx context.Context) error {
 	result, err := coll.InsertOne(ctx, book)
 
 	if err != nil {
