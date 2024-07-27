@@ -1,6 +1,6 @@
 services:
   booksstorage:
-    image: viniciusrw/booksstorage:latest
+    image: docker.io/viniciusrw/booksstorage:latest
     restart: always
     build:
       context: server/booksstorage
@@ -20,7 +20,7 @@ services:
       - mongodb
 
   mongodb:
-    image: mongo
+    image: docker.io/mongo
     restart: always
     ports:
       - "27017:27017"
@@ -34,7 +34,7 @@ services:
       - ./mongo/data:/data/db
 
   booksstorageclient:
-    image: viniciusrw/booksstorageclient:latest
+    image: docker.io/viniciusrw/booksstorageclient:latest
     restart: always
     build:
       context: client/
@@ -45,7 +45,7 @@ services:
       mode: global
 
   booksstoragemail:
-    image: viniciusrw/booksstorage-mail:latest
+    image: docker.io/viniciusrw/booksstorage-mail:latest
     restart: always
     build:
       context: server/BooksStorage.Mail
@@ -57,14 +57,14 @@ services:
       replicas: 1
 
   mailhog:
-    image: mailhog/mailhog:latest
+    image: docker.io/mailhog/mailhog:latest
     restart: always
     ports:
       - "1025:1025"
       - "8025:8025"
 
   booksstorage-feeder:
-    image: viniciusrw/booksstorage-feeder:latest
+    image: docker.io/viniciusrw/booksstorage-feeder:latest
     restart: always
     build:
       context: server/booksstorage-feeder
