@@ -37,6 +37,9 @@ func Routes(logger *slog.Logger) http.Handler {
 		r.Get("/book", func(w http.ResponseWriter, r *http.Request) {
 			handlers.GetAllBooksHandler(w, r, logger)
 		})
+		r.Post("/book", func(w http.ResponseWriter, r *http.Request) {
+			handlers.InsertOneBookHandler(w, r, logger)
+		})
 	})
 
 	return r
