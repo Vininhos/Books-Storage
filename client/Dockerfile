@@ -1,4 +1,4 @@
-FROM node:20 AS build
+FROM docker.io/node:20 AS build
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN npm install
 
 RUN npm run build --prod
 
-FROM nginx:latest
+FROM docker.io/nginx:latest
 
 RUN rm -rf /usr/share/nginx/html/*
 
