@@ -3,13 +3,21 @@ services:
     image: viniciusrw/booksstorage:latest
     restart: always
     build:
-      context: server/BooksStorage
+      context: server/booksstorage
       dockerfile: Dockerfile
     ports:
-      - "8079:80"
+      - "8080:8080"
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_USERNAME=mongoadmin
+      - MONGODB_PASSWORD=secret
+      - MONGODB_DATABASE=bookstorage
+      - MONGODB_COLLECTION=books
+    depends_on:
+      - mongodb
 
   mongodb:
     image: mongo
@@ -62,7 +70,7 @@ services:
       context: server/booksstorage-feeder
       dockerfile: Dockerfile
     environment:
-      BOOKSSTORAGEAPIURL: http://booksstorage:8079/api/book
+      BOOKSSTORAGEAPIURL: http://booksstorage:8080/api/book
     deploy:
       mode: replicated
       replicas: 1

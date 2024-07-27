@@ -77,7 +77,7 @@ func GetAllBooks(ctx context.Context) ([]models.Book, error) {
 	return results, nil
 }
 
-func GetBooksByName(name string, coll *mongo.Collection, ctx context.Context) ([]models.Book, error) {
+func GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
 	cur, err := coll.Find(ctx, bson.D{{"Name", name}})
@@ -98,7 +98,7 @@ func GetBooksByName(name string, coll *mongo.Collection, ctx context.Context) ([
 	return results, nil
 }
 
-func InsertOneBook(book models.Book, coll *mongo.Collection, ctx context.Context) error {
+func InsertOneBook(book models.Book, ctx context.Context) error {
 	result, err := coll.InsertOne(ctx, book)
 
 	if err != nil {
