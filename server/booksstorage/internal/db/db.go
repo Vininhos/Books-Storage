@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -80,7 +81,8 @@ func GetAllBooks(ctx context.Context) ([]models.Book, error) {
 func GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
-	cur, err := coll.Find(ctx, bson.D{{"Name", name}})
+	slog.Info("Finding books with the following name:", slog.String("Book name", name))
+	cur, err := coll.Find(ctx, bson.D{{Key: "name", Value: name}})
 
 	if err = cur.All(ctx, &results); err != nil {
 		panic(err)

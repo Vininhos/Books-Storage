@@ -37,8 +37,15 @@ func Routes(logger *slog.Logger) http.Handler {
 		r.Get("/book", func(w http.ResponseWriter, r *http.Request) {
 			handlers.GetAllBooksHandler(w, r, logger)
 		})
+
 		r.Post("/book", func(w http.ResponseWriter, r *http.Request) {
 			handlers.InsertOneBookHandler(w, r, logger)
+		})
+
+		r.Get("/book/name", func(w http.ResponseWriter, r *http.Request) {
+			name := r.URL.Query().Get("name")
+			slog.Info("Value got from parameters:", slog.String("Name:", name))
+			handlers.GetBooksByNameHandler(w, r, name, logger)
 		})
 	})
 
