@@ -15,8 +15,8 @@ jobs:
 
   build-publish-image:
     uses: ./.github/workflows/build-publish-image.yaml
-    secrets: inherit
     needs: code-quality
+    secrets: inherit
     with:
       imageName: "booksstorage"
       projectDirectory: "server/booksstorage"
@@ -24,5 +24,6 @@ jobs:
   image-quality:
     uses: ./.github/workflows/image-quality.yaml
     needs: build-publish-image
+    secrets: inherit
     with:
       imageName: "booksstorage"

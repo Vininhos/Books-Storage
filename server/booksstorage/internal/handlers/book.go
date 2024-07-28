@@ -35,3 +35,15 @@ func InsertOneBookHandler(w http.ResponseWriter, r *http.Request, logger *slog.L
 
 	w.WriteHeader(http.StatusCreated)
 }
+
+func GetBooksByNameHandler(w http.ResponseWriter, r *http.Request, name string, logger *slog.Logger) {
+	ctx := r.Context()
+	book, err := db.GetBooksByName(name, ctx)
+	if err != nil {
+		logger.Error(err.Error())
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(book)
+}
