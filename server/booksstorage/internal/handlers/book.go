@@ -8,9 +8,9 @@ import (
 	"net/http"
 )
 
-func GetAllBooksHandler(w http.ResponseWriter, r *http.Request, logger *slog.Logger) {
+func GetAllBooksHandler(w http.ResponseWriter, r *http.Request, mongoDatabase *db.MongoDatabase, logger *slog.Logger) {
 	ctx := r.Context()
-	book, err := db.GetAllBooks(ctx)
+	book, err := mongoDatabase.GetAllBooks(ctx)
 	if err != nil {
 		logger.Error(err.Error())
 	}
@@ -20,7 +20,7 @@ func GetAllBooksHandler(w http.ResponseWriter, r *http.Request, logger *slog.Log
 	json.NewEncoder(w).Encode(book)
 }
 
-func InsertOneBookHandler(w http.ResponseWriter, r *http.Request, logger *slog.Logger) {
+func InsertOneBookHandler(w http.ResponseWriter, r *http.Request, mongoDatabase *db.MongoDatabase, logger *slog.Logger) {
 	ctx := r.Context()
 	var book models.Book
 
@@ -29,16 +29,16 @@ func InsertOneBookHandler(w http.ResponseWriter, r *http.Request, logger *slog.L
 		logger.Error("An error happened when trying to decode the json payload", slog.String("Error:", err.Error()))
 	}
 
-	if err = db.InsertOneBook(book, ctx); err != nil {
+	if err = mongoDatabase.InsertOneBook(book, ctx); err != nil {
 		logger.Error("An error happened when trying to insert a book to db", slog.String("Error:", err.Error()))
 	}
 
 	w.WriteHeader(http.StatusCreated)
 }
 
-func GetBooksByNameHandler(w http.ResponseWriter, r *http.Request, name string, logger *slog.Logger) {
+func GetBooksByNameHandler(w http.ResponseWriter, r *http.Request, name string, mongoDatabase *db.MongoDatabase, logger *slog.Logger) {
 	ctx := r.Context()
-	book, err := db.GetBooksByName(name, ctx)
+	book, err := mongoDatabase.GetBooksByName(name, ctx)
 	if err != nil {
 		logger.Error(err.Error())
 	}

@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"booksstorage/internal/db"
 	"booksstorage/internal/handlers"
 	"log/slog"
 	"net/http"
@@ -10,7 +11,7 @@ import (
 	"github.com/go-chi/cors"
 )
 
-func Routes(logger *slog.Logger) http.Handler {
+func Routes(mongoDatabase *db.MongoDatabase, logger *slog.Logger) http.Handler {
 	r := chi.NewRouter()
 
 	r.Use(middleware.RequestID)
@@ -35,16 +36,16 @@ func Routes(logger *slog.Logger) http.Handler {
 
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/book", func(w http.ResponseWriter, r *http.Request) {
-			handlers.GetAllBooksHandler(w, r, logger)
+			handlers.GetAllBooksHandler(w, r, mongoDatabase, logger)
 		})
 
 		r.Post("/book", func(w http.ResponseWriter, r *http.Request) {
-			handlers.InsertOneBookHandler(w, r, logger)
+			handlers.InsertOneBookHandler(w, r, mongoDatabase, logger)
 		})
 
 		r.Get("/book/name", func(w http.ResponseWriter, r *http.Request) {
 			name := r.URL.Query().Get("name")
-			handlers.GetBooksByNameHandler(w, r, name, logger)
+			handlers.GetBooksByNameHandler(w, r, name, mongoDatabase, logger)
 		})
 	})
 

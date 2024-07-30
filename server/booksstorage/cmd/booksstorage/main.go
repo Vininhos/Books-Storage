@@ -3,6 +3,7 @@ package main
 import (
 	"booksstorage/internal/db"
 	"booksstorage/internal/logger"
+	"booksstorage/internal/models"
 	"booksstorage/internal/routes"
 	"context"
 	"log"
@@ -25,14 +26,22 @@ func main() {
 		logger.Info("No .env file found")
 	}
 
-	if err := db.ConnectToDB(ctx); err != nil {
+	dbCred, err := models.MakeDbCred()
+
+	if err != nil {
+		panic(err)
+	}
+
+	mongoDatabase, err := db.ConnectToDB(dbCred, ctx)
+
+	if err != nil {
 		logger.Error("Error while connecting to DB:", slog.String("Error", err.Error()))
 	}
-	defer db.DisconnectFromDB(ctx)
+	defer mongoDatabase.DisconnectFromDB(ctx)
 
 	slog.Info("Connected to DB!")
 
-	r := routes.Routes(logger)
+	r := routes.Routes(mongoDatabase, logger)
 	slog.Info("Listening to port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", r))
 
