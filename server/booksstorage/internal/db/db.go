@@ -3,62 +3,49 @@ package db
 import (
 	"booksstorage/internal/models"
 	"context"
-	"errors"
 	"fmt"
 	"log/slog"
-	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var (
-	client *mongo.Client
-	coll   *mongo.Collection
-)
-
-func ConnectToDB(ctx context.Context) error {
-	if client != nil {
-		return errors.New("already connected to db")
-	}
-
-	uri := os.Getenv("MONGODB_URI")
-
-	if uri == "" {
-		return errors.New("URI environment could not be loaded. Please check the environment keys on your .env or the K8s env manifests")
-	}
-
-	credential := options.Credential{
-		Username: os.Getenv("MONGODB_USERNAME"),
-		Password: os.Getenv("MONGODB_PASSWORD"),
-	}
-
-	if credential.Username == "" || credential.Password == "" {
-		return errors.New("URI environment could not be loaded. Please check the environment keys on your .env or the K8s env manifests")
-	}
-
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri).SetAuth(credential))
-
-	if err != nil {
-		return err
-	}
-
-	coll = client.Database(os.Getenv("MONGODB_DATABASE")).Collection(os.Getenv("MONGODB_COLLECTION"))
-
-	return nil
+type MongoDatabase struct {
+	Client *mongo.Client
+	Coll   *mongo.Collection
 }
 
-func DisconnectFromDB(ctx context.Context) {
-	if err := client.Disconnect(ctx); err != nil {
+func ConnectToDB(dbCred models.DbCred, ctx context.Context) (*MongoDatabase, error) {
+	clientOptions := options.Client().ApplyURI(dbCred.Uri).SetAuth(dbCred.Credentials)
+	client, err := mongo.Connect(ctx, clientOptions)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if err := client.Ping(ctx, nil); err != nil {
+		return nil, err
+	}
+
+	coll := client.Database(dbCred.Uri).Collection(dbCred.Collection)
+
+	return &MongoDatabase{
+		Client: client,
+		Coll:   coll,
+	}, nil
+}
+
+func (m *MongoDatabase) DisconnectFromDB(ctx context.Context) {
+	if err := m.Client.Disconnect(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func GetAllBooks(ctx context.Context) ([]models.Book, error) {
+func (m *MongoDatabase) GetAllBooks(ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
-	cur, err := coll.Find(ctx, bson.D{})
+	cur, err := m.Coll.Find(ctx, bson.D{})
 
 	if err = cur.All(ctx, &results); err != nil {
 		panic(err)
@@ -78,11 +65,11 @@ func GetAllBooks(ctx context.Context) ([]models.Book, error) {
 	return results, nil
 }
 
-func GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
+func (m *MongoDatabase) GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
 	slog.Info("Finding books with the following name:", slog.String("Book name", name))
-	cur, err := coll.Find(ctx, bson.D{{Key: "name", Value: name}})
+	cur, err := m.Coll.Find(ctx, bson.D{{Key: "name", Value: name}})
 
 	if err = cur.All(ctx, &results); err != nil {
 		panic(err)
@@ -100,8 +87,8 @@ func GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
 	return results, nil
 }
 
-func InsertOneBook(book models.Book, ctx context.Context) error {
-	result, err := coll.InsertOne(ctx, book)
+func (m *MongoDatabase) InsertOneBook(book models.Book, ctx context.Context) error {
+	result, err := m.Coll.InsertOne(ctx, book)
 
 	if err != nil {
 		fmt.Printf("An error occuried while trying to insert one document. Err: %s\n", err.Error())
