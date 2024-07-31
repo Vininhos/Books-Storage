@@ -46,13 +46,12 @@ func MakeDbCred() (DbCred, error) {
 	errs := validateEnvVars(vars)
 
 	if len(errs) > 0 {
-		errMsg := ""
+		errMsg := "One or more env variable could not be loaded. Please check the env keys on your .env or the K8s env manifests. Env variables that should be validated:\n"
 		for _, err := range errs {
-			errMsg += "One or more env variable could not be loaded. Please check the env keys on your .env or the K8s env manifests. Env variables that should be validated:\n" + err
+			errMsg += err + "\n"
 		}
 		err := errors.New(errMsg)
 		return DbCred{}, err
 	}
-
 	return dbCred, nil
 }

@@ -21,27 +21,24 @@ func main() {
 	defer cancel()
 
 	logger := logger.GetLogger()
-
 	if err := godotenv.Load(); err != nil {
 		logger.Info("No .env file found")
 	}
 
 	dbCred, err := models.MakeDbCred()
-
 	if err != nil {
 		panic(err)
 	}
 
-	mongoDatabase, err := db.ConnectToDB(dbCred, ctx)
-
+	db, err := db.ConnectToDB(dbCred, ctx)
 	if err != nil {
-		logger.Error("Error while connecting to DB:", slog.String("Error", err.Error()))
+		log.Fatalf("Error while connecting to DB: %s\n", err.Error())
 	}
-	defer mongoDatabase.DisconnectFromDB(ctx)
+	defer db.DisconnectFromDB(ctx)
 
 	slog.Info("Connected to DB!")
 
-	r := routes.Routes(mongoDatabase, logger)
+	r := routes.Routes(db, logger)
 	slog.Info("Listening to port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", r))
 
