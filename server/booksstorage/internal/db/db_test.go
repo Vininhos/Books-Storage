@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/integration/mtest"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func TestGetAllBooks(t *testing.T) {
@@ -22,6 +23,17 @@ func TestGetAllBooks(t *testing.T) {
 		t.Errorf("error while setting the MONGODB_DATABASE environment variable: %s.", err)
 		t.FailNow()
 	}
+
+	dbCred := models.DbCred{
+		Uri:        "localhost:27017",
+		Collection: coll,
+		Database:   tdb,
+		Credentials: options.Credential{
+			Username: "test",
+			Password: "password",
+		},
+	}
+
 	defer os.Clearenv()
 
 	mtestdb := mtest.New(t, mtest.NewOptions().ClientType(mtest.Mock))
@@ -66,7 +78,8 @@ func TestGetAllBooks(t *testing.T) {
 
 		mt.Client.Database(tdb).Collection(coll)
 
-		if err := db.ConnectToDB(context.TODO()); err != nil {
+		db, err := db.ConnectToDB(dbCred, context.TODO())
+		if err != nil {
 			t.Error(err)
 		}
 
