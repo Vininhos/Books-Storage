@@ -28,7 +28,7 @@ func ConnectToDB(dbCred models.DbCred, ctx context.Context) (*MongoDatabase, err
 		return nil, err
 	}
 
-	coll := client.Database(dbCred.Uri).Collection(dbCred.Collection)
+	coll := client.Database(dbCred.Database).Collection(dbCred.Collection)
 
 	return &MongoDatabase{
 		Client: client,
@@ -91,7 +91,7 @@ func (m *MongoDatabase) InsertOneBook(book models.Book, ctx context.Context) err
 	result, err := m.Coll.InsertOne(ctx, book)
 
 	if err != nil {
-		fmt.Printf("An error occuried while trying to insert one document. Err: %s\n", err.Error())
+		fmt.Printf("An error ocurred while trying to insert one document. Err: %s\n", err.Error())
 		return err
 	}
 
