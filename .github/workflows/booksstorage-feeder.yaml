@@ -24,5 +24,6 @@ jobs:
   image-quality:
     uses: ./.github/workflows/image-quality.yaml
     needs: build-publish-image
+    secrets: inherit
     with:
       imageName: "booksstorage-feeder"
