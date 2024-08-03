@@ -1,8 +1,7 @@
 package api
 
 import (
-	"booksstorage-feeder/pkg/logger"
-	"booksstorage-feeder/pkg/model"
+	"booksstorage-feeder/internal/model"
 	"bytes"
 	"encoding/json"
 	"log/slog"
@@ -12,9 +11,21 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 )
 
+var logger *slog.Logger
+
+func init() {
+	logger = logger.GetLogger()
+}
+
 func GetNewBook() model.Book {
-	logger.Logger.Info("Generating new random book from gofakeit and returning it.")
-	book := model.Book{Name: gofakeit.BookTitle(), Author: gofakeit.BookAuthor(), PublicationYear: gofakeit.Year(), Price: gofakeit.Price(99, 19999), Category: gofakeit.BookGenre(), Email: gofakeit.Email()}
+	logger.Info("Generating new random book from gofakeit and returning it.")
+	book := model.Book{
+		Name:            gofakeit.BookTitle(),
+		Author:          gofakeit.BookAuthor(),
+		PublicationYear: gofakeit.Year(),
+		Price:           gofakeit.Price(99, 19999),
+		Category:        gofakeit.BookGenre(),
+		Email:           gofakeit.Email()}
 
 	logger.Logger.Info("New book was generated.", slog.String("Book", book.Name))
 	return book
