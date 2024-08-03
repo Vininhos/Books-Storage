@@ -2,9 +2,7 @@ package main
 
 import (
 	"booksstorage-feeder/internal/api"
-	"booksstorage-feeder/internal/logger"
 	"booksstorage-feeder/internal/model"
-	"fmt"
 	"log/slog"
 	"math/rand"
 	"os"
@@ -18,25 +16,28 @@ var (
 	r    int = 60000
 )
 
+func init() {
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	slog.SetDefault(logger)
+}
+
 func main() {
 	rarg := os.Getenv("MAXMILLISEC")
 	if rarg != "" {
 		r, err = strconv.Atoi(rarg)
 		if err != nil {
-			panic(fmt.Sprintf("Error while converting environment variable to int. Error: %s", err))
+			panic(err)
 		}
 	}
-	logger := logger.GetLogger()
 
 	for {
 		book = api.GetNewBook()
 
 		err = api.SendPayload(book)
 		if err != nil {
-			logger.Logger.Error(
+			slog.Error(
 				"Error while sending a new book to the API:",
-				slog.String("error", err.Error()),
-			)
+				"error", err)
 		}
 
 		r := rand.Intn(r)
