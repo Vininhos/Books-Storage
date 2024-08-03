@@ -2,7 +2,6 @@ package api
 
 import (
 	"booksstorage-feeder/internal/model"
-	"booksstorage-feeder/pkg/log"
 	"bytes"
 	"encoding/json"
 	"log/slog"
@@ -12,10 +11,8 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 )
 
-var logger *slog.Logger = log.GetLogger()
-
 func GetNewBook() model.Book {
-	logger.Info("Generating new random book from gofakeit and returning it.")
+	slog.Info("Generating new random book from gofakeit and returning it.")
 	book := model.Book{
 		Name:            gofakeit.BookTitle(),
 		Author:          gofakeit.BookAuthor(),
@@ -24,27 +21,27 @@ func GetNewBook() model.Book {
 		Category:        gofakeit.BookGenre(),
 		Email:           gofakeit.Email()}
 
-	logger.Info("New book was generated.", slog.String("Book", book.Name))
+	slog.Info("New book was generated.", slog.String("Book", book.Name))
 	return book
 }
 
 func SendPayload(book model.Book) error {
-	logger.Info("Executing JSON Marshal from book:", slog.String("name", book.Name))
+	slog.Info("Executing JSON Marshal from book:", slog.String("name", book.Name))
 	body, err := json.Marshal(book)
 	if err != nil {
 		return err
 	}
 
-	logger.Info("Generating payload.")
+	slog.Info("Generating payload.")
 	payload := bytes.NewBuffer(body)
 
-	logger.Info("Posting payload to the API.")
+	slog.Info("Posting payload to the API.")
 	res, err := http.Post(os.Getenv("BOOKSSTORAGEAPIURL"), "application/json", payload)
 	if err != nil {
 		return err
 	}
 
-	logger.Info("Response Status Code:", slog.Int("statusCode", res.StatusCode))
+	slog.Info("Response Status Code:", slog.Int("statusCode", res.StatusCode))
 
 	return nil
 }

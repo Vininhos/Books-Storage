@@ -3,7 +3,6 @@ package main
 import (
 	"booksstorage-feeder/internal/api"
 	"booksstorage-feeder/internal/model"
-	"booksstorage-feeder/pkg/log"
 	"log/slog"
 	"math/rand"
 	"os"
@@ -17,6 +16,11 @@ var (
 	r    int = 60000
 )
 
+func init() {
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	slog.SetDefault(logger)
+}
+
 func main() {
 	rarg := os.Getenv("MAXMILLISEC")
 	if rarg != "" {
@@ -25,17 +29,15 @@ func main() {
 			panic(err)
 		}
 	}
-	logger := log.GetLogger()
 
 	for {
 		book = api.GetNewBook()
 
 		err = api.SendPayload(book)
 		if err != nil {
-			logger.Error(
+			slog.Error(
 				"Error while sending a new book to the API:",
-				slog.String("error", err.Error()),
-			)
+				"error", err)
 		}
 
 		r := rand.Intn(r)
