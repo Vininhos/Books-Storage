@@ -1,9 +1,9 @@
 package main
 
 import (
-	"booksstorage-feeder/pkg/api"
-	"booksstorage-feeder/pkg/logger"
-	"booksstorage-feeder/pkg/model"
+	"booksstorage-feeder/internal/api"
+	"booksstorage-feeder/internal/logger"
+	"booksstorage-feeder/internal/model"
 	"fmt"
 	"log/slog"
 	"math/rand"
@@ -18,7 +18,7 @@ var (
 	r    int = 60000
 )
 
-func init() {
+func main() {
 	rarg := os.Getenv("MAXMILLISEC")
 	if rarg != "" {
 		r, err = strconv.Atoi(rarg)
@@ -26,9 +26,8 @@ func init() {
 			panic(fmt.Sprintf("Error while converting environment variable to int. Error: %s", err))
 		}
 	}
-}
+	logger := logger.GetLogger()
 
-func main() {
 	for {
 		book = api.GetNewBook()
 
