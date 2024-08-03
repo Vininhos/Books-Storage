@@ -1,4 +1,4 @@
-package logger
+package log
 
 import (
 	"log/slog"
@@ -7,8 +7,14 @@ import (
 	"github.com/lmittmann/tint"
 )
 
+var logger *slog.Logger
+
 func GetLogger() *slog.Logger {
-	logger := slog.New(tint.NewHandler(os.Stdout, nil))
+	if logger != nil {
+		return logger
+	}
+
+	logger = slog.New(tint.NewHandler(os.Stdout, nil))
 
 	slog.SetDefault(logger)
 

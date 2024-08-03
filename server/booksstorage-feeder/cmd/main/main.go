@@ -2,9 +2,8 @@ package main
 
 import (
 	"booksstorage-feeder/internal/api"
-	"booksstorage-feeder/internal/logger"
 	"booksstorage-feeder/internal/model"
-	"fmt"
+	"booksstorage-feeder/pkg/log"
 	"log/slog"
 	"math/rand"
 	"os"
@@ -23,17 +22,17 @@ func main() {
 	if rarg != "" {
 		r, err = strconv.Atoi(rarg)
 		if err != nil {
-			panic(fmt.Sprintf("Error while converting environment variable to int. Error: %s", err))
+			panic(err)
 		}
 	}
-	logger := logger.GetLogger()
+	logger := log.GetLogger()
 
 	for {
 		book = api.GetNewBook()
 
 		err = api.SendPayload(book)
 		if err != nil {
-			logger.Logger.Error(
+			logger.Error(
 				"Error while sending a new book to the API:",
 				slog.String("error", err.Error()),
 			)
