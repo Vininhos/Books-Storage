@@ -3,7 +3,6 @@ package db
 import (
 	"booksstorage/internal/models"
 	"context"
-	"fmt"
 	"log/slog"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -47,20 +46,21 @@ func (m *MongoDatabase) GetAllBooks(ctx context.Context) ([]models.Book, error) 
 
 	cur, err := m.Coll.Find(ctx, bson.D{})
 
-	if err = cur.All(ctx, &results); err != nil {
-		panic(err)
-	}
+	err = cur.All(ctx, &results)
 
 	if err == mongo.ErrNoDocuments {
-		fmt.Printf("No books were found\n")
+		slog.Warn("No books were found",
+			"error", err)
 		return nil, err
 	}
 
 	for _, book := range results {
-		fmt.Printf("Book founded: %s\n", book.Name)
+		slog.Info("Book founded.",
+			"bookName", book.Name)
 	}
 
-	fmt.Printf("results length: %d\n", len(results))
+	slog.Info("Results length",
+		"length", len(results))
 
 	return results, nil
 }
@@ -68,20 +68,22 @@ func (m *MongoDatabase) GetAllBooks(ctx context.Context) ([]models.Book, error) 
 func (m *MongoDatabase) GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
-	slog.Info("Finding books with the following name:", slog.String("Book name", name))
+	slog.Info("Finding books with the following name:",
+		"bookName", name)
+
 	cur, err := m.Coll.Find(ctx, bson.D{{Key: "name", Value: name}})
 
-	if err = cur.All(ctx, &results); err != nil {
-		panic(err)
-	}
+	err = cur.All(ctx, &results)
 
 	if err == mongo.ErrNoDocuments {
-		fmt.Printf("No document was found with the title \"%s\"\n", name)
+		slog.Warn("No books were found",
+			"error", err)
 		return nil, err
 	}
 
 	for _, book := range results {
-		fmt.Printf("Book founded: %s", book.Name)
+		slog.Info("Book founded.",
+			"bookName", book.Name)
 	}
 
 	return results, nil
@@ -91,11 +93,13 @@ func (m *MongoDatabase) InsertOneBook(book models.Book, ctx context.Context) err
 	result, err := m.Coll.InsertOne(ctx, book)
 
 	if err != nil {
-		fmt.Printf("An error ocurred while trying to insert one document. Err: %s\n", err.Error())
+		slog.Error("An error ocurred while trying to insert one document",
+			"error", err)
 		return err
 	}
 
-	fmt.Printf("Book was inserted with the following id: %s\n", result.InsertedID)
+	slog.Info("Book sucessfully added to db.",
+		"bsonId", result.InsertedID)
 
 	return nil
 }
