@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booksstorage-depl
+spec:
+  selector:
+    matchLabels:
+      app: booksstorage-depl
+  template:
+    metadata:
+      labels:
+        app: booksstorage-depl
+    spec:
+      containers:
+        - name: booksstorage
+          image: viniciusrw/booksstorage:1.0.7-k8s
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "100m"
+            limits:
+              memory: "300Mi"
+              cpu: "150m"
+          ports:
+            - containerPort: 8080
+              name: apiport
