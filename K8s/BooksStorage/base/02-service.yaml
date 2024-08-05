@@ -6,6 +6,6 @@ spec:
   selector:
     app: booksstorage-depl
   ports:
-  - port: 80
-    protocol: TCP
-    targetPort: apiport
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080

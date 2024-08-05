@@ -1,8 +1,0 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name:  booksstorage-client-depl
-  labels:
-    app:  booksstorage-client-depl
-spec:
-  replicas: 2
