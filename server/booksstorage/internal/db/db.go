@@ -41,6 +41,7 @@ func (m *MongoDatabase) DisconnectFromDB(ctx context.Context) {
 	}
 }
 
+// GetAllBooks return all books in database.
 func (m *MongoDatabase) GetAllBooks(ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
@@ -65,12 +66,12 @@ func (m *MongoDatabase) GetAllBooks(ctx context.Context) ([]models.Book, error) 
 	return results, nil
 }
 
+// GetBooksByName queries the database to find any books that matches with the provided name.
 func (m *MongoDatabase) GetBooksByName(name string, ctx context.Context) ([]models.Book, error) {
 	var results []models.Book
 
 	slog.Info("Finding books with the following name:",
 		"bookName", name)
-
 	cur, err := m.Coll.Find(ctx, bson.D{{Key: "name", Value: name}})
 
 	err = cur.All(ctx, &results)
@@ -89,9 +90,9 @@ func (m *MongoDatabase) GetBooksByName(name string, ctx context.Context) ([]mode
 	return results, nil
 }
 
+// InsertOneBook inserts a book into database.
 func (m *MongoDatabase) InsertOneBook(book models.Book, ctx context.Context) error {
 	result, err := m.Coll.InsertOne(ctx, book)
-
 	if err != nil {
 		slog.Error("An error ocurred while trying to insert one document",
 			"error", err)
