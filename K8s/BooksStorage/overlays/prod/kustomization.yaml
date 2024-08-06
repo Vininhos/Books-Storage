@@ -3,9 +3,6 @@ kind: Kustomization
 
 resources:
   - ../../base
-  - "01-image.yaml"
-  - "02-hpa.yaml"
-  - "03-env.yaml"
 
 patches:
   - target:
