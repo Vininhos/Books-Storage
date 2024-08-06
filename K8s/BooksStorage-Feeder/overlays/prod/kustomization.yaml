@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base
+  - "../../base"
 
 patches:
   - target:
@@ -11,6 +11,6 @@ patches:
   - target:
       kind: Deployment
     path: 02-hpa.yaml
-  # - target:
-  #     kind: Deployment
-  #   path: 03-env.yaml
+  - target:
+      kind: Deployment
+    path: 03-env.yaml

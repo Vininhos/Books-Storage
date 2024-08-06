@@ -1,12 +1,12 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: booksstorage-client-hpa
+  name: booksstorage-mail-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: booksstorage-client-depl
+    name: booksstorage-mail-depl
   minReplicas: 1
   maxReplicas: 5
   metrics:

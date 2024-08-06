@@ -3,4 +3,11 @@ kind: Kustomization
 
 resources:
   - "../../base"
-  - "hpa.yaml"
+
+patches:
+  - path: 01-image.yaml
+    target:
+      kind: Deployment
+  - path: 02-hpa.yaml
+    target:
+      kind: Deployment
