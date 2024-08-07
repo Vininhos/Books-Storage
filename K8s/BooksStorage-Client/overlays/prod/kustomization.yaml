@@ -5,9 +5,12 @@ resources:
   - "../../base"
 
 patches:
-  - path: 01-image.yaml
-    target:
+  - target:
       kind: Deployment
-  - path: 02-hpa.yaml
-    target:
+    path: 01-image.yaml
+  - target:
+      kind: HorizontalPodAutoscaler
+    path: 02-hpa.yaml
+  - target:
       kind: Deployment
+    path: 04-resources.yaml
