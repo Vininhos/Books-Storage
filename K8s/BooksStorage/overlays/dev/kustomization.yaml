@@ -9,8 +9,11 @@ patches:
       kind: Deployment
     path: 01-image.yaml
   - target:
-      kind: Deployment
+      kind: HorizontalPodAutoscaler
     path: 02-hpa.yaml
-  # - target:
-  #     kind: Deployment
-  #   path: 03-env.yaml
+  - target:
+      kind: Deployment
+    path: 03-env.yaml
+  - target:
+      kind: Deployment
+    path: 04-resources.yaml
