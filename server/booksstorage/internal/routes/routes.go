@@ -10,7 +10,7 @@ import (
 	"github.com/go-chi/cors"
 )
 
-func Routes(mongoDatabase *db.MongoDatabase) http.Handler {
+func Routes(db *db.MongoDatabase) http.Handler {
 	r := chi.NewRouter()
 
 	r.Use(middleware.RequestID)
@@ -35,16 +35,20 @@ func Routes(mongoDatabase *db.MongoDatabase) http.Handler {
 
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/book", func(w http.ResponseWriter, r *http.Request) {
-			handlers.GetAllBooksHandler(w, r, mongoDatabase)
+			handlers.GetAllBooksHandler(w, r, db)
 		})
 
 		r.Post("/book", func(w http.ResponseWriter, r *http.Request) {
-			handlers.InsertOneBookHandler(w, r, mongoDatabase)
+			handlers.InsertOneBookHandler(w, r, db)
 		})
+
+		r.Post("/book/email",  func(w http.ResponseWriter, r *http.Request) {
+			handlers.InsertOneBookAndSendMailHandler(w, r, db)
+		}
 
 		r.Get("/book/name", func(w http.ResponseWriter, r *http.Request) {
 			name := r.URL.Query().Get("name")
-			handlers.GetBooksByNameHandler(w, r, name, mongoDatabase)
+			handlers.GetBooksByNameHandler(w, r, name, db)
 		})
 	})
 
