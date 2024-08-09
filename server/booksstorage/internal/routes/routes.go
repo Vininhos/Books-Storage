@@ -42,9 +42,9 @@ func Routes(db *db.MongoDatabase) http.Handler {
 			handlers.InsertOneBookHandler(w, r, db)
 		})
 
-		r.Post("/book/email",  func(w http.ResponseWriter, r *http.Request) {
-			handlers.InsertOneBookAndSendMailHandler(w, r, db)
-		}
+		r.Post("/book/email", func(w http.ResponseWriter, r *http.Request) {
+			handlers.InsertOneBookAndSendEmailHandler(w, r, db)
+		})
 
 		r.Get("/book/name", func(w http.ResponseWriter, r *http.Request) {
 			name := r.URL.Query().Get("name")
