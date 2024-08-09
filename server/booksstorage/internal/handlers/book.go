@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"booksstorage/internal/db"
+	"booksstorage/internal/mailer"
 	"booksstorage/internal/models"
 	"encoding/json"
 	"log/slog"
 	"net/http"
+	"os"
 )
 
 // GetAllBooksHandler handle HTTP GET requests to access all books from database.
@@ -60,7 +62,10 @@ func InsertOneBookAndSendEmailHandler(w http.ResponseWriter, r *http.Request, db
 		http.Error(w, errorMsg, http.StatusBadRequest)
 	}
 
-	//TODO Create communication with Mailer service.
+	err = mailer.SendMailRequest(os.Getenv("MAILER_FROM"),
+		os.Getenv("MAILER_TO"),
+		"Thanks for adding a new book!",
+		"New book was added! Thanks for contributing to BooksStorage.")
 
 	w.WriteHeader(http.StatusCreated)
 }
