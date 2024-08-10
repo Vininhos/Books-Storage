@@ -8,9 +8,14 @@ spec:
       labels:
         app: booksstorage-depl
     spec:
+      secureContext:
+        runAsUser: 1000
+        runAsGroup: 1000
       containers:
         - name: booksstorage
           image:
           ports:
             - containerPort: 8080
               name: apiport
+          securityContext:
+            allowPrivilegeEscalation: false
