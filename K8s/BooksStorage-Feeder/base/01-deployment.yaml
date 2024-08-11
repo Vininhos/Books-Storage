@@ -11,11 +11,11 @@ spec:
       labels:
         app: booksstoragefeeder-depl
     spec:
-      secureContext:
+      securityContext:
         runAsUser: 1000
         runAsGroup: 1000
       containers:
         - name: booksstoragefeeder
           image:
-        securityContext:
-          allowPrivilegeEscalation: false
+          securityContext:
+            allowPrivilegeEscalation: false
