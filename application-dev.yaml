@@ -20,7 +20,7 @@ spec:
       path: K8s/BooksStorage-Feeder/overlays/dev
 
     - repoURL: https://github.com/Vininhos/Books-Storage.git
-      targetRevision: dotnet-legacy
+      targetRevision: master
       path: K8s/BooksStorage-Mail/overlays/dev
 
     # Infrastructure, observability and database.
