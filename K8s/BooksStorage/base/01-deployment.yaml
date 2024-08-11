@@ -3,12 +3,15 @@ kind: Deployment
 metadata:
   name: booksstorage-depl
 spec:
+  selector:
+    matchLabels:
+      app: booksstorage-depl
   template:
     metadata:
       labels:
         app: booksstorage-depl
     spec:
-      secureContext:
+      securityContext:
         runAsUser: 1000
         runAsGroup: 1000
       containers:

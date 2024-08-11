@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: booksstorage-mail
-          image: viniciusrw/booksstorage-mail:1.0.3-k8s
+          image:
           ports:
             - containerPort: 80
               name: apiport
