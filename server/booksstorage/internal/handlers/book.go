@@ -29,6 +29,7 @@ func InsertOneBookHandler(w http.ResponseWriter, r *http.Request, db *db.MongoDa
 	var book models.Book
 
 	err := json.NewDecoder(r.Body).Decode(&book)
+	defer r.Body.Close()
 	if err != nil {
 		errorMsg := "An error happened when trying to decode the json payload"
 		slog.Error(errorMsg, slog.String("Error:", err.Error()))
