@@ -1,5 +1,19 @@
 - op: add
   path: /spec/template/spec/containers/0/env
   value:
-    - name: MailerService
-      value: http://booksstoragemail-svc/api/mail
+    - name: MONGODB_URI
+      value: "mongodb://mongodb:27017"
+    - name: MONGODB_USERNAME
+      value: "mongoadmin"
+    - name: MONGODB_PASSWORD
+      value: "secret"
+    - name: MONGODB_DATABASE
+      value: "bookstorage"
+    - name: MONGODB_COLLECTION
+      value: "books"
+    - name: MAILER_URL
+      value: http://booksstorage-mail-svc/api/mail
+    - name: MAILER_FROM
+      value: "mailer@booksstorage.com"
+    - name: MAILER_TO
+      value: "fakeuser@fakeemail.com"
