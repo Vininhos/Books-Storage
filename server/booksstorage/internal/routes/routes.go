@@ -33,6 +33,11 @@ func Routes(db *db.MongoDatabase) http.Handler {
 		w.Write([]byte("Welcome to BooksStorage!"))
 	})
 
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("health is ok"))
+	})
+
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/book", func(w http.ResponseWriter, r *http.Request) {
 			handlers.GetAllBooksHandler(w, r, db)
