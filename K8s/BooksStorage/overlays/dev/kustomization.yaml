@@ -10,6 +10,9 @@ patches:
     path: 01-image.yaml
   - target:
       kind: Deployment
+    path: 02-healthcheck.yaml
+  - target:
+      kind: Deployment
     path: 03-env.yaml
   - target:
       kind: Deployment

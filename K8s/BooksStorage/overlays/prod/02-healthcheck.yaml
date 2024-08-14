@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booksstorage-depl
+spec:
+  template:
+    spec:
+      containers:
+        - name: booksstorage
+          image:
+          ports:
+            - containerPort: 8080
+              name: apiport
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: apiport
+            failureThreshold: 1
+            periodSeconds: 10
+            startupProbe:
+              httpGet:
+                path: /health
+                port: apiport
+                failureThreshold: 30
+                periodSeconds: 10
