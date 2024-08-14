@@ -32,6 +32,11 @@ func Routes() http.Handler {
 		w.Write([]byte("Welcome to BooksStorage-Mail!"))
 	})
 
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("health is ok"))
+	})
+
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/book", func(w http.ResponseWriter, r *http.Request) {
 			handlers.SendEmailHandler(w, r)

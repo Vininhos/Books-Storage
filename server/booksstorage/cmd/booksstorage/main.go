@@ -33,6 +33,7 @@ func main() {
 		panic(err)
 	}
 
+	slog.Info("Connecting to DB...")
 	db, err := db.ConnectToDB(dbCred, ctx)
 	if err != nil {
 		panic(err)
