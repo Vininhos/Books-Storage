@@ -41,6 +41,7 @@ func Routes() http.Handler {
 		r.Get("/book", func(w http.ResponseWriter, r *http.Request) {
 			handlers.SendEmailHandler(w, r)
 		})
+	})
 
 	return r
 }
