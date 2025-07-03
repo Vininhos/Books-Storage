@@ -3,7 +3,7 @@ name: BooksStorage Action
 on:
   push:
     branches:
-      - "master"
+      - "main"
     paths:
       - "server/booksstorage/**"
 
