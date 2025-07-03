@@ -21,12 +21,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Latest Tag
-        id: latesttag
-        uses: WyriHaximus/github-action-get-previous-tag@v1.4.0
-        with:
-          fallback: 1.0.0
-
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -41,4 +35,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.imageName }}:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.imageName }}:${{ steps.latesttag.outputs.tag }}-${{ github.run_number }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.imageName }}:${{ github.run_number }}
