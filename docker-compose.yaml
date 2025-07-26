@@ -48,10 +48,10 @@ services:
     image: docker.io/viniciusrw/booksstorage-mail:latest
     restart: always
     build:
-      context: server/BooksStorage.Mail
+      context: server/booksstorage-email
       dockerfile: Dockerfile
     ports:
-      - "8081:80"
+      - "8081:8080"
     deploy:
       mode: replicated
       replicas: 1

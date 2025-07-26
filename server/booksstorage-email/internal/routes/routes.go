@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"booksstorage-email/internal/routes/handlers"
+	"booksstorage-email/internal/handlers"
 	"net/http"
 
 	"github.com/go-chi/chi/middleware"
