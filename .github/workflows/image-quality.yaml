@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: "docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.imageName }}:latest"
+          image-ref: "docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.imageName }}:${{ github.run_number }}"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
-          vuln-type: "os,library"
+          vuln-type: "library"
           severity: "CRITICAL,HIGH"

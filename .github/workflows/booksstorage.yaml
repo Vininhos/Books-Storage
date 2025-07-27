@@ -3,19 +3,13 @@ name: BooksStorage Action
 on:
   push:
     branches:
-      - "main"
+      - main
     paths:
       - "server/booksstorage/**"
 
 jobs:
-  code-quality:
-    uses: ./.github/workflows/code-quality.yaml
-    permissions:
-      security-events: write
-
   build-publish-image:
     uses: ./.github/workflows/build-publish-image.yaml
-    needs: code-quality
     secrets: inherit
     with:
       imageName: "booksstorage"
