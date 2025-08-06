@@ -1,9 +1,107 @@
-# What is BooksStorage?
+# BooksStorage (EN-US)
 
-BooksStorage is a Microservices Web/API application written in C#, Angular and Go, also using technologies like Docker and Kubernetes to deploy and MongoDB to store books. BooksStorage works as an application with a web view to search and consult added books on the database while using backend API's to feed and retrieve storaged books on the database.
+## Overview
+BooksStorage is a microservices-based web and API application designed for managing and storing books. It leverages Go, Angular, and utilizes Docker, Kubernetes, and MongoDB for deployment and storage. The project provides a web interface for searching and consulting books, as well as backend APIs for feeding and retrieving book data.
 
-# Why did you created this project?
+## Features
+- Microservices architecture
+- Web interface for book management (Angular)
+- Backend APIs (Go)
+- MongoDB for persistent storage
+- Dockerized services for easy deployment
+- Kubernetes manifests for orchestration and scaling
 
-In the start of the project, BooksStorage was supposed to be just a backend API for storaging Books in a MongoDB Collection, dedicated to use only for my DevOps studies, because a DevOps engineer needs a project to deploy, but instead of using someones project, I decided to create one project and use it. The project evolved to a little bit more than I was planning, but the best thing is that I'm now able to undestand a lot of development details that are attached to the DevOps culture and the deployment tools like Kubernetes. Another main goal of this project is to study tech that I wished to apply on something, so then I created this piece by piece while learning new things. I'm still building this project as a opportunity to grow my skills and make something.
+## Architecture
+- **Client**: Angular web application for user interaction
+- **Server**: Multiple backend services (Go) for API and background processing
+- **Database**: MongoDB for storing book data
+- **DevOps**: Docker for containerization, Kubernetes for orchestration
 
+## Technologies Used
+- Angular
+- Go
+- MongoDB
+- Docker
+- Kubernetes
 
+## Setup & Deployment
+1. **Clone the repository**
+   
+   HTTPS:
+   ```sh
+   git clone https://github.com/Vininhos/Books-Storage.git
+   ```
+   or with SSH:
+   ```sh
+   git clone https://github.com/Vininhos/Books-Storage.git
+   ```
+2. **Docker Compose**
+   ```sh
+   cd Books-Storage
+   docker-compose up --build
+   ```
+3. **Kubernetes**
+   - Use the manifests in the `K8s/` directory for deployment.
+   - Example:
+     ```sh
+     kubectl apply -k K8s/BooksStorage/overlays/dev
+     ```
+
+## Usage
+- Access the web interface to search, add, and manage books.
+- Use the API endpoints for programmatic access (see API documentation if available).
+
+## License
+MIT License
+
+---
+
+# BooksStorage (PT-BR)
+
+## Visão Geral
+BooksStorage é uma aplicação web e API baseada em microsserviços para gerenciar e armazenar livros. Utiliza C#, Go e Angular, além de Docker, Kubernetes e MongoDB para implantação e armazenamento. O projeto oferece uma interface web para consulta e busca de livros, além de APIs para alimentar e recuperar dados dos livros.
+
+## Funcionalidades
+- Arquitetura de microsserviços
+- Interface web para gerenciamento de livros (Angular)
+- APIs backend (Go)
+- MongoDB para armazenamento persistente
+- Serviços dockerizados para fácil implantação
+- Manifests Kubernetes para orquestração e escalabilidade
+
+## Arquitetura
+- **Cliente**: Aplicação web Angular para interação do usuário
+- **Servidor**: Múltiplos serviços backend (Go) para API e processamento em background
+- **Banco de Dados**: MongoDB para armazenar dados dos livros
+- **DevOps**: Docker para conteinerização, Kubernetes para orquestração
+
+## Tecnologias Utilizadas
+- Angular
+- Go
+- MongoDB
+- Docker
+- Kubernetes
+
+## Instalação & Deploy
+1. **Clone o repositório**
+   ```sh
+   git clone https://github.com/Vininhos/Books-Storage.git
+   ```
+2. **Docker Compose**
+   ```sh
+   cd Books-Storage
+   docker-compose up --build
+   ```
+3. **Kubernetes**
+   - Utilize os manifests no diretório `K8s/` para implantação.
+   - Exemplo:
+     ```sh
+     kubectl apply -k K8s/BooksStorage/overlays/dev
+     ```
+
+## Uso
+- Acesse a interface web para buscar, adicionar e gerenciar livros.
+- Utilize os endpoints da API para acesso programático (veja a documentação da API se disponível).
+
+## Licença
+MIT License
