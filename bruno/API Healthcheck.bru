@@ -1,0 +1,21 @@
+meta {
+  name: API Healthcheck
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{host}}:8080/health
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("should be health", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}
+
+settings {
+  encodeUrl: true
+}
