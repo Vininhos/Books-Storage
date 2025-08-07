@@ -1,0 +1,31 @@
+meta {
+  name: Add a Book and send Email
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{host}}:8080/api/book/email
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "Name": "A test book",
+    "Author": "Vini",
+    "PubYear": 2025,
+    "Price": 199.99,
+    "Category": "Action"
+  }
+}
+
+tests {
+  test("should create a book", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
+}
+
+settings {
+  encodeUrl: true
+}

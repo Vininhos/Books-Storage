@@ -1,0 +1,15 @@
+meta {
+  name: Get All Books
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{host}}:8080/api/book
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

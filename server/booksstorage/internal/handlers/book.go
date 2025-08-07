@@ -2,12 +2,10 @@ package handlers
 
 import (
 	"booksstorage/internal/db"
-	"booksstorage/internal/mailer"
 	"booksstorage/internal/models"
 	"encoding/json"
 	"log/slog"
 	"net/http"
-	"os"
 )
 
 // GetAllBooksHandler handle HTTP GET requests to access all books from database.
@@ -41,32 +39,6 @@ func InsertOneBookHandler(w http.ResponseWriter, r *http.Request, db *db.MongoDa
 		slog.Error(errorMsg, slog.String("Error:", err.Error()))
 		http.Error(w, errorMsg, http.StatusBadRequest)
 	}
-
-	w.WriteHeader(http.StatusCreated)
-}
-
-// InsertOneBookAndSendEmailHandler handle HTTP POST requests to insert books and POST and request to mailer service.
-func InsertOneBookAndSendEmailHandler(w http.ResponseWriter, r *http.Request, db *db.MongoDatabase) {
-	ctx := r.Context()
-	var book models.Book
-
-	err := json.NewDecoder(r.Body).Decode(&book)
-	if err != nil {
-		errorMsg := "An error happened when trying to decode the json payload"
-		slog.Error(errorMsg, slog.String("Error:", err.Error()))
-		http.Error(w, errorMsg, http.StatusBadRequest)
-	}
-
-	if err = db.InsertOneBook(book, ctx); err != nil {
-		errorMsg := "An error happened when trying to insert the book to db"
-		slog.Error(errorMsg, slog.String("Error:", err.Error()))
-		http.Error(w, errorMsg, http.StatusBadRequest)
-	}
-
-	err = mailer.SendMailRequest(os.Getenv("MAILER_FROM"),
-		os.Getenv("MAILER_TO"),
-		"Thanks for adding a new book!",
-		"New book was added! Thanks for contributing to BooksStorage.")
 
 	w.WriteHeader(http.StatusCreated)
 }
